@@ -1,0 +1,78 @@
+{{ define "main" }}
+<section class="ec-home">
+  <div class="ec-hero">
+    <p class="ec-eyebrow">AI Agent · Cloud Lab · Security Notes</p>
+    <h1><span>把踩坑过程写成</span><span>能复用的工程笔记</span></h1>
+    <p class="ec-hero__lead">
+      这里记录 AI Agent、VPS、代理节点、Cloudflare、监控面板和个人工具的真实部署过程。
+      少一点万能教程味，多一点能复盘、能验证、能上线的现场记录。
+    </p>
+    <div class="ec-hero__actions">
+      <a class="ec-button ec-button--primary" href="/posts/">阅读文章</a>
+      <a class="ec-button" href="/projects/">项目地图</a>
+      <a class="ec-button" href="/ask/">站内问答</a>
+    </div>
+  </div>
+
+  <div class="ec-feature-grid" aria-label="当前关注方向">
+    <article class="ec-feature-card">
+      <span>01</span>
+      <h2>AI Agent</h2>
+      <p>从知识库问答、检索增强到 API 部署，把 Agent 想法拆成可运行的系统。</p>
+    </article>
+    <article class="ec-feature-card">
+      <span>02</span>
+      <h2>Cloud Lab</h2>
+      <p>VPS、Docker、Nginx、Cloudflare、Beszel 这些基础设施，不靠玄学，靠验证。</p>
+    </article>
+    <article class="ec-feature-card">
+      <span>03</span>
+      <h2>Security Notes</h2>
+      <p>代理节点、访问控制、防火墙和密钥管理，重点是边界清楚，而不是命令堆砌。</p>
+    </article>
+  </div>
+
+  <section class="ec-section">
+    <div class="ec-section__heading">
+      <p>Featured</p>
+      <h2>最新复盘</h2>
+    </div>
+    <div class="ec-post-list">
+      {{ range first 3 (where site.RegularPages "Section" "posts") }}
+      <a class="ec-post-card" href="{{ .RelPermalink }}">
+        <div>
+          <h3>{{ .Title }}</h3>
+          <p>{{ with .Summary }}{{ . | plainify | truncate 110 }}{{ else }}{{ .Description | plainify | truncate 110 }}{{ end }}</p>
+        </div>
+        <span>{{ .Date.Format "2006-01-02" }}</span>
+      </a>
+      {{ end }}
+    </div>
+  </section>
+
+  <section class="ec-section ec-lab">
+    <div class="ec-section__heading">
+      <p>Current Stack</p>
+      <h2>正在维护的个人基础设施</h2>
+    </div>
+    <div class="ec-lab-grid">
+      <a class="ec-lab-card" href="/posts/">
+        <strong>Hugo + PaperMod</strong>
+        <span>博客、文章归档、搜索索引</span>
+      </a>
+      <a class="ec-lab-card" href="/ask/">
+        <strong>Knowledge Agent</strong>
+        <span>站内文章问答与检索增强</span>
+      </a>
+      <a class="ec-lab-card" href="https://tools.estevancyber.net/">
+        <strong>Tools</strong>
+        <span>个人工具页与实验入口</span>
+      </a>
+      <a class="ec-lab-card" href="/projects/">
+        <strong>VPS Lab</strong>
+        <span>节点、监控、Docker 服务复盘</span>
+      </a>
+    </div>
+  </section>
+</section>
+{{ end }}
