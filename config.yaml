@@ -20,9 +20,9 @@ params:
   ShowToc: true
 
   profileMode:
-    enabled: true
+    enabled: false
     Title: "Estevan Cyber"
-    subtitle: "记录 AI Agent 开发部署与技术学习，也会分享些读书笔记和对生活的感悟…"
+    subtitle: "把 AI Agent、VPS、Cloudflare 与个人工具的踩坑过程写成可复用的工程笔记。"
     buttons:
       - name: 文章
         url: /posts/
@@ -38,6 +38,10 @@ params:
         url: /about/
 menu:
   main:
+    - identifier: home
+      name: 首页
+      url: /
+      weight: 5
     - identifier: posts
       name: 文章
       url: /posts/
