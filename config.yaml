@@ -22,7 +22,7 @@ params:
   profileMode:
     enabled: false
     Title: "Estevan Cyber"
-    subtitle: "把 AI Agent、VPS、Cloudflare 与个人工具的踩坑过程写成可复用的工程笔记。"
+    subtitle: "一起学习与成长..."
     buttons:
       - name: 文章
         url: /posts/
