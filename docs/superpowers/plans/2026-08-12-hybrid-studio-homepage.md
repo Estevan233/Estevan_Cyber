@@ -92,7 +92,7 @@ test("default theme is light", () => {
 
 - [x] **Step 4: Run the test and confirm it fails for the missing implementation**
 
-Run: `node --test tests/homepage-contract.test.js`  
+Run: `node --test tests/homepage-contract.test.js`
 Expected: FAIL because the new partials, data files, and notices do not exist.
 
 - [x] **Step 5: Commit the baseline test**
@@ -202,7 +202,7 @@ Render four links for Hugo + PaperMod, Knowledge Agent, Tools, and VPS Lab. Use 
 
 - [x] **Step 7: Run the contract test**
 
-Run: `node --test tests/homepage-contract.test.js`  
+Run: `node --test tests/homepage-contract.test.js`
 Expected: the partial-composition assertions pass; notices and light-theme assertions still fail until later tasks.
 
 - [x] **Step 8: Commit the template composition**
@@ -228,7 +228,7 @@ assert.equal(periodProgress("year", new Date(2024, 6, 2, 0, 0, 0)), 50);
 
 - [x] **Step 2: Run tests and confirm the module is missing**
 
-Run: `node --test tests/home-progress.test.js`  
+Run: `node --test tests/home-progress.test.js`
 Expected: FAIL with `MODULE_NOT_FOUND`.
 
 - [x] **Step 3: Implement pure calendar calculations and DOM binding**
@@ -237,7 +237,7 @@ Export `periodProgress(period, now)` under CommonJS for tests. In browsers, find
 
 - [x] **Step 4: Run progress tests**
 
-Run: `node --test tests/home-progress.test.js`  
+Run: `node --test tests/home-progress.test.js`
 Expected: PASS.
 
 - [x] **Step 5: Commit progress behavior**
@@ -259,7 +259,7 @@ Test `normalizeIndex(index, length)`, `nextIndex`, and `previousIndex`, includin
 
 - [x] **Step 2: Run tests and confirm the module is missing**
 
-Run: `node --test tests/home-player.test.js`  
+Run: `node --test tests/home-player.test.js`
 Expected: FAIL with `MODULE_NOT_FOUND`.
 
 - [x] **Step 3: Implement state helpers and DOM/audio binding**
@@ -268,7 +268,7 @@ On track selection, pause, replace `audio.src`, call `load()`, update the active
 
 - [x] **Step 4: Run player tests**
 
-Run: `node --test tests/home-player.test.js`  
+Run: `node --test tests/home-player.test.js`
 Expected: PASS.
 
 - [x] **Step 5: Commit player behavior**
@@ -348,7 +348,7 @@ At 900px collapse the main grid; at 720px stack navigation-adjacent homepage con
 
 - [x] **Step 6: Run all contract and unit tests**
 
-Run: `node --test tests/*.test.js`  
+Run: `node --test tests/*.test.js`
 Expected: PASS.
 
 - [x] **Step 7: Commit the visual implementation**
@@ -365,12 +365,12 @@ git commit -m "feat: apply adaptive evening homepage design"
 
 - [x] **Step 1: Build the production site**
 
-Run: `hugo --gc --minify --environment production`  
+Run: `hugo --gc --minify --environment production`
 Expected: exit 0 with no template or missing-resource errors.
 
 - [x] **Step 2: Run a local Hugo server**
 
-Run: `hugo server --bind 127.0.0.1 --port 1313 --disableFastRender`  
+Run: `hugo server --bind 127.0.0.1 --port 1313 --disableFastRender`
 Expected: homepage is available at `http://127.0.0.1:1313/`.
 
 - [x] **Step 3: Verify desktop and mobile in the user’s in-app browser**
@@ -392,7 +392,7 @@ git status --short
 
 Also search tracked source for passwords, tokens, private keys, and local absolute paths.
 
-- [ ] **Step 6: Commit QA fixes, push the branch, and open a review PR**
+- [x] **Step 6: Commit QA fixes, push the branch, and open a review PR**
 
 ```powershell
 git add layouts assets data config.yaml tests THIRD_PARTY_NOTICES.md static/media/music
