@@ -1,0 +1,46 @@
+<section class="ec-articles" aria-labelledby="ec-latest-title">
+  <div class="ec-section-heading">
+    <div>
+      <p>Latest writing</p>
+      <h2 id="ec-latest-title">最近写下的内容</h2>
+    </div>
+    <a href="/posts/">查看全部</a>
+  </div>
+
+  <div class="ec-article-list">
+    {{ range first 5 ((where site.RegularPages "Section" "posts").ByDate.Reverse) }}
+      {{ $page := . }}
+      {{ $cover := false }}
+      {{ with .Params.cover.image }}
+        {{ with $page.Resources.GetMatch . }}
+          {{ $cover = .Fill "360x240 Smart webp q80" }}
+        {{ end }}
+      {{ end }}
+      <a class="ec-article-row{{ with $cover }} has-cover{{ end }}" href="{{ .RelPermalink }}">
+        <div class="ec-article-row__body">
+          <div class="ec-article-row__meta">
+            <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+            <span>{{ .ReadingTime }} 分钟阅读</span>
+          </div>
+          <h3>{{ .Title }}</h3>
+          <p>{{ with .Summary }}{{ . | plainify | truncate 136 }}{{ else }}{{ .Description | plainify | truncate 136 }}{{ end }}</p>
+          {{ with .Params.tags }}
+          <div class="ec-article-row__tags" aria-label="文章标签">
+            {{ range first 2 . }}<span>{{ . }}</span>{{ end }}
+          </div>
+          {{ end }}
+        </div>
+        {{ with $cover }}
+        <img
+          class="ec-article-row__cover"
+          src="{{ .RelPermalink }}"
+          width="360"
+          height="240"
+          alt=""
+          loading="lazy"
+        >
+        {{ end }}
+      </a>
+    {{ end }}
+  </div>
+</section>

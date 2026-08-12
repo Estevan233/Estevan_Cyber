@@ -1,0 +1,31 @@
+{{ $hero := resources.Get "images/home/hybrid-studio-hero.png" }}
+<section class="ec-hero" aria-labelledby="ec-home-title">
+  {{ with $hero }}
+    {{ $heroSmall := .Fill "960x720 Center webp q82" }}
+    {{ $heroLarge := .Fill "1800x900 Center webp q84" }}
+    <picture class="ec-hero__media">
+      <source media="(max-width: 720px)" srcset="{{ $heroSmall.RelPermalink }}">
+      <img
+        src="{{ $heroLarge.RelPermalink }}"
+        srcset="{{ $heroSmall.RelPermalink }} 960w, {{ $heroLarge.RelPermalink }} 1800w"
+        sizes="100vw"
+        width="1800"
+        height="900"
+        alt="暖色台灯照亮的夜间工作台，桌面摆放着电脑、笔记和绿植"
+        fetchpriority="high"
+      >
+    </picture>
+  {{ end }}
+  <div class="ec-hero__overlay" aria-hidden="true"></div>
+  <div class="ec-hero__content">
+    <p class="ec-eyebrow">AI Agent · Cloud Lab · Daily Notes</p>
+    <h1 id="ec-home-title">Estevan Cyber</h1>
+    <p class="ec-hero__subtitle">技术、生活与仍在进行的实验。</p>
+    <p class="ec-hero__lead">记录 AI Agent、云端实践、个人项目，也记录它们之外的日常。</p>
+    <div class="ec-hero__actions">
+      <a class="ec-button ec-button--primary" href="/posts/">阅读文章</a>
+      <a class="ec-button" href="/projects/">看看项目</a>
+      <a class="ec-button" href="/ask/">站内问答</a>
+    </div>
+  </div>
+</section>
