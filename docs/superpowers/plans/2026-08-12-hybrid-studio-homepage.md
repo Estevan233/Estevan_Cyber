@@ -39,7 +39,7 @@
 - Modify: `.gitignore`
 - Create: `tests/homepage-contract.test.js`
 
-- [ ] **Step 1: Initialize the PaperMod submodule at the commit pinned by the repository**
+- [x] **Step 1: Initialize the PaperMod submodule at the commit pinned by the repository**
 
 Run:
 
@@ -49,7 +49,7 @@ git submodule update --init --recursive
 
 Expected: `themes/PaperMod/layouts` exists and `git status --short` remains clean apart from planned files.
 
-- [ ] **Step 2: Add local build outputs to `.gitignore`**
+- [x] **Step 2: Add local build outputs to `.gitignore`**
 
 Append:
 
@@ -59,7 +59,7 @@ public/
 resources/_gen/
 ```
 
-- [ ] **Step 3: Write the initial failing homepage contract test**
+- [x] **Step 3: Write the initial failing homepage contract test**
 
 Create `tests/homepage-contract.test.js`:
 
@@ -90,12 +90,12 @@ test("default theme is light", () => {
 });
 ```
 
-- [ ] **Step 4: Run the test and confirm it fails for the missing implementation**
+- [x] **Step 4: Run the test and confirm it fails for the missing implementation**
 
 Run: `node --test tests/homepage-contract.test.js`  
 Expected: FAIL because the new partials, data files, and notices do not exist.
 
-- [ ] **Step 5: Commit the baseline test**
+- [x] **Step 5: Commit the baseline test**
 
 ```powershell
 git add .gitignore tests/homepage-contract.test.js
@@ -110,7 +110,7 @@ git commit -m "test: define hybrid homepage contract"
 - Create: `layouts/partials/home/focus.html`
 - Create: `layouts/partials/home/playlist.html`
 
-- [ ] **Step 1: Add three manually maintained focus records**
+- [x] **Step 1: Add three manually maintained focus records**
 
 Create `data/focus.yaml`:
 
@@ -129,7 +129,7 @@ Create `data/focus.yaml`:
   url: /posts/digitalocean-to-oracle-cloud-migration/
 ```
 
-- [ ] **Step 2: Add local playlist metadata**
+- [x] **Step 2: Add local playlist metadata**
 
 Create `data/playlist.yaml`:
 
@@ -151,15 +151,15 @@ Create `data/playlist.yaml`:
   license: CC0 1.0
 ```
 
-- [ ] **Step 3: Render focus data only when it exists**
+- [x] **Step 3: Render focus data only when it exists**
 
 Create `layouts/partials/home/focus.html` with a `with site.Data.focus` guard, a section heading, and linked focus rows containing `.title`, `.summary`, and `.status`. Do not render raw HTML from YAML.
 
-- [ ] **Step 4: Render a collapsed playlist with native audio fallback**
+- [x] **Step 4: Render a collapsed playlist with native audio fallback**
 
 Create `layouts/partials/home/playlist.html` with a `with site.Data.playlist` guard, a closed `<details class="ec-playlist">`, previous/next buttons, track buttons carrying `data-src`, and `<audio controls preload="metadata">`. Native controls satisfy play/pause, seek, and volume; JavaScript only handles track selection.
 
-- [ ] **Step 5: Commit the data layer**
+- [x] **Step 5: Commit the data layer**
 
 ```powershell
 git add data layouts/partials/home/focus.html layouts/partials/home/playlist.html
@@ -176,36 +176,36 @@ git commit -m "feat: add editable homepage focus and playlist data"
 - Create: `layouts/partials/home/tag-cloud.html`
 - Create: `layouts/partials/home/facilities.html`
 
-- [ ] **Step 1: Replace the monolithic homepage with partial composition**
+- [x] **Step 1: Replace the monolithic homepage with partial composition**
 
 `layouts/index.html` must define `main`, render `hero`, a two-column `ec-home-grid` containing `article-list` and a sidebar with `focus`, `progress`, `tag-cloud`, and `playlist`, then render `facilities`. At the end, load `js/home-progress.js` and `js/home-player.js` with Hugo `resources.Get | minify | fingerprint` and `defer`.
 
-- [ ] **Step 2: Add the full-width Hero**
+- [x] **Step 2: Add the full-width Hero**
 
 Render `assets/images/home/hybrid-studio-hero.png` through Hugo image processing into 900px and 1800px WebP candidates. Place the responsive `<picture>` absolutely behind the text, include fixed width/height, `fetchpriority="high"`, and the approved title, supporting copy, and three links.
 
-- [ ] **Step 3: Add the latest-five article list**
+- [x] **Step 3: Add the latest-five article list**
 
 Range over `first 5 (where site.RegularPages "Section" "posts")`. Render title, summary, date, reading time, and the first two tags. Resolve `.Params.cover.image` from page resources when present; omit the media element when absent.
 
-- [ ] **Step 4: Add accessible progress markup**
+- [x] **Step 4: Add accessible progress markup**
 
 Render four progress rows with `data-period="day|week|month|year"`, a text percentage, and a native `<progress max="100" value="0">`. Include `<noscript>启用 JavaScript 后显示本地时间进度。</noscript>`.
 
-- [ ] **Step 5: Add a bounded Hugo tag cloud**
+- [x] **Step 5: Add a bounded Hugo tag cloud**
 
 Range over `first 18 site.Taxonomies.tags.ByCount`; map counts to `ec-tag--small`, `ec-tag--medium`, or `ec-tag--large`, and use each taxonomy page’s `.RelPermalink`.
 
-- [ ] **Step 6: Add the compact facilities band**
+- [x] **Step 6: Add the compact facilities band**
 
 Render four links for Hugo + PaperMod, Knowledge Agent, Tools, and VPS Lab. Use text and existing routes only; do not manufacture illustration assets.
 
-- [ ] **Step 7: Run the contract test**
+- [x] **Step 7: Run the contract test**
 
 Run: `node --test tests/homepage-contract.test.js`  
 Expected: the partial-composition assertions pass; notices and light-theme assertions still fail until later tasks.
 
-- [ ] **Step 8: Commit the template composition**
+- [x] **Step 8: Commit the template composition**
 
 ```powershell
 git add layouts
@@ -218,7 +218,7 @@ git commit -m "feat: compose hybrid studio homepage"
 - Create: `assets/js/home-progress.js`
 - Create: `tests/home-progress.test.js`
 
-- [ ] **Step 1: Write deterministic date tests**
+- [x] **Step 1: Write deterministic date tests**
 
 Test exact boundaries, midpoint behavior, Monday-based weeks, leap-year February, and clamping to `0..100` using Node’s built-in test runner. Example assertion:
 
@@ -226,21 +226,21 @@ Test exact boundaries, midpoint behavior, Monday-based weeks, leap-year February
 assert.equal(periodProgress("year", new Date(2024, 6, 2, 0, 0, 0)), 50);
 ```
 
-- [ ] **Step 2: Run tests and confirm the module is missing**
+- [x] **Step 2: Run tests and confirm the module is missing**
 
 Run: `node --test tests/home-progress.test.js`  
 Expected: FAIL with `MODULE_NOT_FOUND`.
 
-- [ ] **Step 3: Implement pure calendar calculations and DOM binding**
+- [x] **Step 3: Implement pure calendar calculations and DOM binding**
 
 Export `periodProgress(period, now)` under CommonJS for tests. In browsers, find `[data-period]` rows, set native progress values and percentage text, run immediately, and refresh every 60 seconds. Week boundaries are Monday 00:00 through the next Monday.
 
-- [ ] **Step 4: Run progress tests**
+- [x] **Step 4: Run progress tests**
 
 Run: `node --test tests/home-progress.test.js`  
 Expected: PASS.
 
-- [ ] **Step 5: Commit progress behavior**
+- [x] **Step 5: Commit progress behavior**
 
 ```powershell
 git add assets/js/home-progress.js tests/home-progress.test.js
@@ -253,25 +253,25 @@ git commit -m "feat: add local time progress"
 - Create: `assets/js/home-player.js`
 - Create: `tests/home-player.test.js`
 
-- [ ] **Step 1: Write pure playlist-index tests**
+- [x] **Step 1: Write pure playlist-index tests**
 
 Test `normalizeIndex(index, length)`, `nextIndex`, and `previousIndex`, including empty playlists and wraparound.
 
-- [ ] **Step 2: Run tests and confirm the module is missing**
+- [x] **Step 2: Run tests and confirm the module is missing**
 
 Run: `node --test tests/home-player.test.js`  
 Expected: FAIL with `MODULE_NOT_FOUND`.
 
-- [ ] **Step 3: Implement state helpers and DOM/audio binding**
+- [x] **Step 3: Implement state helpers and DOM/audio binding**
 
 On track selection, pause, replace `audio.src`, call `load()`, update the active row and now-playing label, and only call `play()` when selection originated from an explicit play request. Previous and next controls wrap around. Catch rejected play promises and expose a readable status without throwing.
 
-- [ ] **Step 4: Run player tests**
+- [x] **Step 4: Run player tests**
 
 Run: `node --test tests/home-player.test.js`  
 Expected: PASS.
 
-- [ ] **Step 5: Commit player behavior**
+- [x] **Step 5: Commit player behavior**
 
 ```powershell
 git add assets/js/home-player.js tests/home-player.test.js
@@ -286,15 +286,15 @@ git commit -m "feat: add homepage playlist controls"
 - Create: `static/media/music/chill-lofi-inspired.mp3`
 - Create: `THIRD_PARTY_NOTICES.md`
 
-- [ ] **Step 1: Download only the files linked by the three OpenGameArt source pages**
+- [x] **Step 1: Download only the files linked by the three OpenGameArt source pages**
 
 Use the OGG/MP3 links shown on the corresponding pages. Reject a response unless its MIME type begins with `audio/` and its size matches the source page within a reasonable margin.
 
-- [ ] **Step 2: Record SHA-256 hashes and license provenance**
+- [x] **Step 2: Record SHA-256 hashes and license provenance**
 
 `THIRD_PARTY_NOTICES.md` must list title, author, source page, local file, SHA-256, download date `2026-08-12`, and `CC0 1.0` link for each track.
 
-- [ ] **Step 3: Verify media and total repository cost**
+- [x] **Step 3: Verify media and total repository cost**
 
 Run:
 
@@ -305,7 +305,7 @@ Get-FileHash static/media/music/* -Algorithm SHA256
 
 Expected: three non-empty files and a combined size below 10 MB.
 
-- [ ] **Step 4: Commit audio and notices**
+- [x] **Step 4: Commit audio and notices**
 
 ```powershell
 git add static/media/music THIRD_PARTY_NOTICES.md
@@ -319,11 +319,11 @@ git commit -m "chore: add CC0 homepage music"
 - Modify: `assets/css/extended/custom.css`
 - Modify: `config.yaml`
 
-- [ ] **Step 1: Generate the real Hero bitmap**
+- [x] **Step 1: Generate the real Hero bitmap**
 
 Art direction: photorealistic wide editorial photograph of a cozy modern home-office desk at blue hour; warm amber lamp, laptop with a blurred non-readable interface, notebook, books and a small plant; indigo window view; generous negative space on the left for the headline; objects concentrated on the right; no people, logos, readable text, hacker imagery, neon or gradients.
 
-- [ ] **Step 2: Change the default theme**
+- [x] **Step 2: Change the default theme**
 
 Set:
 
@@ -334,24 +334,24 @@ params:
 
 Keep the existing manual PaperMod theme toggle.
 
-- [ ] **Step 3: Replace the global grid-heavy styling with light-first tokens**
+- [x] **Step 3: Replace the global grid-heavy styling with light-first tokens**
 
 Use off-white page background, white surfaces, near-black text, muted slate, restrained teal, and a small amber accent. Remove the fixed body grid and cyber glow. Keep the existing ask-page selectors working.
 
-- [ ] **Step 4: Style the full homepage hierarchy**
+- [x] **Step 4: Style the full homepage hierarchy**
 
 Implement the full-bleed Hero, readable overlay, 2fr/1fr desktop grid, compact post rows, non-nested sidebar modules, bounded tag sizes, native audio controls, facilities band, and visible keyboard focus. Radius stays at or below 8px.
 
-- [ ] **Step 5: Add responsive and motion rules**
+- [x] **Step 5: Add responsive and motion rules**
 
 At 900px collapse the main grid; at 720px stack navigation-adjacent homepage controls, preserve text wrapping, and keep 44px touch targets. Disable transitions under `prefers-reduced-motion: reduce`.
 
-- [ ] **Step 6: Run all contract and unit tests**
+- [x] **Step 6: Run all contract and unit tests**
 
 Run: `node --test tests/*.test.js`  
 Expected: PASS.
 
-- [ ] **Step 7: Commit the visual implementation**
+- [x] **Step 7: Commit the visual implementation**
 
 ```powershell
 git add assets config.yaml tests/homepage-contract.test.js
@@ -363,25 +363,25 @@ git commit -m "feat: apply adaptive evening homepage design"
 **Files:**
 - Verify and, when a concrete QA defect is found, modify only: `layouts/index.html`, `layouts/partials/home/*.html`, `assets/css/extended/custom.css`, `assets/js/home-progress.js`, or `assets/js/home-player.js`
 
-- [ ] **Step 1: Build the production site**
+- [x] **Step 1: Build the production site**
 
 Run: `hugo --gc --minify --environment production`  
 Expected: exit 0 with no template or missing-resource errors.
 
-- [ ] **Step 2: Run a local Hugo server**
+- [x] **Step 2: Run a local Hugo server**
 
 Run: `hugo server --bind 127.0.0.1 --port 1313 --disableFastRender`  
 Expected: homepage is available at `http://127.0.0.1:1313/`.
 
-- [ ] **Step 3: Verify desktop and mobile in the user’s in-app browser**
+- [x] **Step 3: Verify desktop and mobile in the user’s in-app browser**
 
 Capture 1440×900 and 390×844. Check layout, image crop, light/dark themes, navigation, article links, tag links, progress values, collapsed player, track switching, no autoplay, keyboard focus, and horizontal overflow.
 
-- [ ] **Step 4: Compare source, approved concept, and implementation together**
+- [x] **Step 4: Compare source, approved concept, and implementation together**
 
 Inspect the current production screenshot, approved D3 concept, and implementation screenshots in one visual comparison. Fix concrete mismatches in hierarchy, spacing, crop, contrast, radius, wrapping, or control overlap, then capture again.
 
-- [ ] **Step 5: Run final verification**
+- [x] **Step 5: Run final verification**
 
 ```powershell
 node --test tests/*.test.js
