@@ -1,0 +1,12 @@
+- title: 个人网站体验升级
+  summary: 让技术内容更好读，也让首页更像一个有人长期维护的空间。
+  status: 进行中
+  url: /projects/
+- title: Knowledge Agent 检索质量
+  summary: 继续检查站内问答的召回、来源引用和失败回退。
+  status: 观察中
+  url: /ask/
+- title: Oracle Cloud 稳定性观察
+  summary: 记录迁移后的资源占用、网络和容器运行情况。
+  status: 待整理
+  url: /posts/digitalocean-to-oracle-cloud-migration/

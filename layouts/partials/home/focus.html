@@ -1,0 +1,17 @@
+{{ with site.Data.focus }}
+<section class="ec-side-section ec-focus" aria-labelledby="ec-focus-title">
+  <div class="ec-side-section__heading">
+    <p>Now</p>
+    <h2 id="ec-focus-title">当前关注</h2>
+  </div>
+  <div class="ec-focus__list">
+    {{ range . }}
+    <a class="ec-focus__item" href="{{ .url | relURL }}">
+      <span class="ec-focus__status">{{ .status }}</span>
+      <strong>{{ .title }}</strong>
+      <span>{{ .summary }}</span>
+    </a>
+    {{ end }}
+  </div>
+</section>
+{{ end }}
