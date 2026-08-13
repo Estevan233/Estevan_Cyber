@@ -18,11 +18,11 @@
 - Modify: `assets/css/extended/custom.css`
 - Verify: `tests/home-progress.test.js`
 
-- [ ] Change the homepage contract to require `day`, `week`, `month`, and `year` in that order.
-- [ ] Run `node --test tests/homepage-contract.test.js` and confirm the new assertion fails.
-- [ ] Render 今天、本周、本月、今年 with native `<progress>` elements and explicit accessible labels.
-- [ ] Add a two-column desktop layout and one-column mobile layout without changing the calculation API.
-- [ ] Run `node --test tests/homepage-contract.test.js tests/home-progress.test.js` and confirm both pass.
+- [x] Change the homepage contract to require `day`, `week`, `month`, and `year` in that order.
+- [x] Run `node --test tests/homepage-contract.test.js` and confirm the new assertion fails.
+- [x] Render 今天、本周、本月、今年 with native `<progress>` elements and explicit accessible labels.
+- [x] Add a two-column desktop layout and one-column mobile layout without changing the calculation API.
+- [x] Run `node --test tests/homepage-contract.test.js tests/home-progress.test.js` and confirm both pass.
 
 ## Task 2: Publish the design and deployment tutorial
 
