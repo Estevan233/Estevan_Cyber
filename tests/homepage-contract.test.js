@@ -35,3 +35,21 @@ test("homepage data and third-party notices exist", () => {
 test("default theme is light", () => {
   assert.match(read("config.yaml"), /defaultTheme:\s*light/);
 });
+
+test("homepage reveals an overview below the curtain hero", () => {
+  const homepage = read("layouts/index.html");
+  const hero = read("layouts/partials/home/hero.html");
+  const progress = read("layouts/partials/home/progress.html");
+
+  assert.match(homepage, /partial "home\/overview\.html"/);
+  assert.match(homepage, /id="home-content"/);
+  assert.match(homepage, /js\/home-curtain\.js/);
+  assert.match(hero, /data-curtain-hero/);
+  assert.match(hero, /data-hero-image/);
+  assert.match(hero, /href="#home-content"/);
+  assert.match(progress, /data-period="year"/);
+  assert.doesNotMatch(
+    progress,
+    /data-period="day"|data-period="week"|data-period="month"/,
+  );
+});
