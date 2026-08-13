@@ -129,6 +129,7 @@ body:has(.ec-home) .header {
 
 body:has(.ec-home) .header .logo a,
 body:has(.ec-home) .header .menu a,
+body:has(.ec-home) .header #menu .active,
 body:has(.ec-home) .header .theme-toggle {
   color: rgba(255, 255, 255, 0.88);
   text-shadow: 0 1px 12px rgba(0, 0, 0, 0.26);
@@ -142,6 +143,7 @@ html.ec-curtain-scrolled body:has(.ec-home) .header {
 
 html.ec-curtain-scrolled body:has(.ec-home) .header .logo a,
 html.ec-curtain-scrolled body:has(.ec-home) .header .menu a,
+html.ec-curtain-scrolled body:has(.ec-home) .header #menu .active,
 html.ec-curtain-scrolled body:has(.ec-home) .header .theme-toggle {
   color: var(--ec-text);
   text-shadow: none;
