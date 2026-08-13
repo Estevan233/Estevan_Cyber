@@ -2,19 +2,24 @@
 <div class="ec-home">
   {{ partial "home/hero.html" . }}
 
-  <div class="ec-home-grid">
-    {{ partial "home/article-list.html" . }}
-    <aside class="ec-home-sidebar" aria-label="首页侧栏">
-      {{ partial "home/focus.html" . }}
-      {{ partial "home/progress.html" . }}
-      {{ partial "home/tag-cloud.html" . }}
-      {{ partial "home/playlist.html" . }}
-    </aside>
-  </div>
+  <div class="ec-home-curtain" id="home-content">
+    {{ partial "home/overview.html" . }}
 
-  {{ partial "home/facilities.html" . }}
+    <div class="ec-reading-grid">
+      {{ partial "home/article-list.html" . }}
+      <aside class="ec-home-sidebar" aria-label="近期方向">
+      {{ partial "home/focus.html" . }}
+      </aside>
+    </div>
+
+    {{ partial "home/facilities.html" . }}
+  </div>
 </div>
 
+{{ with resources.Get "js/home-curtain.js" }}
+  {{ $script := . | minify | fingerprint }}
+  <script defer src="{{ $script.RelPermalink }}" integrity="{{ $script.Data.Integrity }}"></script>
+{{ end }}
 {{ with resources.Get "js/home-progress.js" }}
   {{ $script := . | minify | fingerprint }}
   <script defer src="{{ $script.RelPermalink }}" integrity="{{ $script.Data.Integrity }}"></script>

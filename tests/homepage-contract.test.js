@@ -8,6 +8,8 @@ const read = (file) => fs.readFileSync(path.join(root, file), "utf8");
 
 test("homepage is composed from focused partials", () => {
   const homepage = read("layouts/index.html");
+  const overview = read("layouts/partials/home/overview.html");
+  const composition = `${homepage}\n${overview}`;
 
   for (const name of [
     "hero",
@@ -18,7 +20,7 @@ test("homepage is composed from focused partials", () => {
     "playlist",
     "facilities",
   ]) {
-    assert.match(homepage, new RegExp(`partial \\"home/${name}\\.html\\"`));
+    assert.match(composition, new RegExp(`partial \\"home/${name}\\.html\\"`));
   }
 });
 

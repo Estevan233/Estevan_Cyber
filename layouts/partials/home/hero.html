@@ -1,31 +1,68 @@
-{{ $hero := resources.Get "images/home/hybrid-studio-hero.png" }}
-<section class="ec-hero" aria-labelledby="ec-home-title">
-  {{ with $hero }}
-    {{ $heroSmall := .Fill "960x720 Center webp q82" }}
-    {{ $heroLarge := .Fill "1800x900 Center webp q84" }}
-    <picture class="ec-hero__media">
-      <source media="(max-width: 720px)" srcset="{{ $heroSmall.RelPermalink }}">
+{{ $images := index hugo.Data "hero-images" }}
+{{ $gallery := slice }}
+{{ range $images }}
+  {{ $source := resources.Get .src }}
+  {{ if not $source }}
+    {{ errorf "Curtain hero image not found: %s" .src }}
+  {{ end }}
+  {{ $anchor := default "Center" .anchor }}
+  {{ $mobile := $source.Fill (printf "900x1200 %s webp q82" $anchor) }}
+  {{ $desktopSmall := $source.Fill (printf "1200x675 %s webp q82" $anchor) }}
+  {{ $desktop := $source.Fill (printf "1600x900 %s webp q84" $anchor) }}
+  {{ $gallery = $gallery | append (dict
+    "id" .id
+    "title" .title
+    "category" .category
+    "alt" .alt
+    "position" .position
+    "mobile" $mobile.RelPermalink
+    "desktop" $desktop.RelPermalink
+    "desktopSrcset" (printf "%s 1200w, %s 1600w" $desktopSmall.RelPermalink $desktop.RelPermalink)
+    "width" $desktop.Width
+    "height" $desktop.Height
+  ) }}
+{{ end }}
+{{ $fallback := index $gallery 0 }}
+
+<section class="ec-hero" data-curtain-hero aria-labelledby="ec-home-title">
+  <picture class="ec-hero__media">
+    <source data-hero-source media="(max-width: 720px)">
+    <img
+      data-hero-image
+      width="{{ $fallback.width }}"
+      height="{{ $fallback.height }}"
+      alt=""
+      decoding="async"
+      fetchpriority="high"
+    >
+  </picture>
+  <noscript>
+    <picture class="ec-hero__media ec-hero__media--fallback">
+      <source media="(max-width: 720px)" srcset="{{ $fallback.mobile }}">
       <img
-        src="{{ $heroLarge.RelPermalink }}"
-        srcset="{{ $heroSmall.RelPermalink }} 960w, {{ $heroLarge.RelPermalink }} 1800w"
+        src="{{ $fallback.desktop }}"
+        srcset="{{ $fallback.desktopSrcset }}"
         sizes="100vw"
-        width="1800"
-        height="900"
-        alt="暖色台灯照亮的夜间工作台，桌面摆放着电脑、笔记和绿植"
-        fetchpriority="high"
+        width="{{ $fallback.width }}"
+        height="{{ $fallback.height }}"
+        alt="{{ $fallback.alt }}"
+        style="object-position: {{ $fallback.position }}"
       >
     </picture>
-  {{ end }}
+  </noscript>
+  <script type="application/json" data-hero-gallery>{{ $gallery | jsonify | safeJS }}</script>
   <div class="ec-hero__overlay" aria-hidden="true"></div>
   <div class="ec-hero__content">
-    <p class="ec-eyebrow">AI Agent · Cloud Lab · Daily Notes</p>
+    <p class="ec-eyebrow">Daily scene · <span data-hero-category>{{ $fallback.category }}</span></p>
     <h1 id="ec-home-title">Estevan Cyber</h1>
     <p class="ec-hero__subtitle">技术、生活与仍在进行的实验。</p>
-    <p class="ec-hero__lead">记录 AI Agent、云端实践、个人项目，也记录它们之外的日常。</p>
-    <div class="ec-hero__actions">
-      <a class="ec-button ec-button--primary" href="/posts/">阅读文章</a>
-      <a class="ec-button" href="/projects/">看看项目</a>
-      <a class="ec-button" href="/ask/">站内问答</a>
+    <div class="ec-hero__caption">
+      <span>今日封面</span>
+      <strong data-hero-caption>{{ $fallback.title }}</strong>
     </div>
+    <a class="ec-hero__discover" href="#home-content" aria-label="向下探索首页内容">
+      <span>向下探索</span>
+      <span aria-hidden="true">↓</span>
+    </a>
   </div>
 </section>
