@@ -47,7 +47,7 @@ backup_file="$BACKUP_ROOT/blog-${timestamp}-${short_sha}.tar.gz"
 swap_started=0
 
 rollback() {
-  status=$?
+  status="${1:-1}"
   trap - ERR INT TERM
   printf 'deploy failed with status %s; attempting rollback\n' "$status" >&2
   if (( swap_started == 1 )); then
@@ -61,7 +61,9 @@ rollback() {
   fi
   exit "$status"
 }
-trap rollback ERR INT TERM
+trap 'rollback $?' ERR
+trap 'rollback 130' INT
+trap 'rollback 143' TERM
 
 install -d -m 0755 "$BACKUP_ROOT"
 install -d -m 0755 "$new_root"
@@ -85,12 +87,18 @@ nginx -t
 homepage="$(curl --insecure --fail --silent --show-error --max-time 15 \
   --resolve "${PROBE_HOST}:443:127.0.0.1" \
   "https://${PROBE_HOST}/?release=${short_sha}")"
-[[ "$homepage" == *"Estevan Cyber"* ]] || fail "homepage probe returned unexpected content"
+if [[ "$homepage" != *"Estevan Cyber"* ]]; then
+  printf 'deploy error: homepage probe returned unexpected content\n' >&2
+  rollback 1
+fi
 
 article="$(curl --insecure --fail --silent --show-error --max-time 15 \
   --resolve "${PROBE_HOST}:443:127.0.0.1" \
   "https://${PROBE_HOST}${ARTICLE_PATH}?release=${short_sha}")"
-[[ "$article" == *"从毛坯首页到幕布式个人网站"* ]] || fail "tutorial probe returned unexpected content"
+if [[ "$article" != *"从毛坯首页到幕布式个人网站"* ]]; then
+  printf 'deploy error: tutorial probe returned unexpected content\n' >&2
+  rollback 1
+fi
 
 trap - ERR INT TERM
 find "$RELEASE_DIR" -depth -delete

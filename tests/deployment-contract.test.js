@@ -64,6 +64,13 @@ test("remote deployment validates, swaps atomically, probes, and rolls back", ()
 
   assert.doesNotMatch(script, /rm\s+-rf\s+[^\n]*\/var\/www\/blog/);
   assert.doesNotMatch(script, /systemctl\s+restart/);
+
+  const probeSection = script.slice(
+    script.indexOf('homepage="$(curl'),
+    script.lastIndexOf("trap - ERR INT TERM"),
+  );
+  assert.match(probeSection, /rollback 1/);
+  assert.doesNotMatch(probeSection, /\|\| fail/);
 });
 
 test("shell scripts keep Unix line endings", () => {
