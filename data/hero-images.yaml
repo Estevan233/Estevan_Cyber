@@ -1,0 +1,41 @@
+- id: dawn-coast
+  src: images/home/curtain/dawn-coast.png
+  title: 海岸晨光
+  category: 风景
+  alt: 清晨海岸上，金色阳光越过海面并照亮黑色礁石
+  position: center
+
+- id: alpine-lake
+  src: images/home/curtain/alpine-lake.png
+  title: 雨后山湖
+  category: 风景
+  alt: 雨后云雾环绕的高山倒映在安静的湖面上
+  position: center 45%
+
+- id: rainy-cinema
+  src: images/home/curtain/rainy-cinema.png
+  title: 雨夜窗景
+  category: 电影感
+  alt: 蓝调时刻的雨夜街道透过咖啡馆窗户映出暖色灯光
+  position: center
+
+- id: evening-studio
+  src: images/home/curtain/evening-studio.png
+  title: 夜间工作台
+  category: 电影感
+  alt: 暖色台灯照亮夜间工作台上的电脑、书本和绿植
+  position: center
+
+- id: quiet-portrait
+  src: images/home/curtain/quiet-portrait.png
+  title: 窗边阅读
+  category: 人物
+  alt: 一位读者坐在明亮窗边，安静地翻阅手中的书
+  position: center
+
+- id: window-cat
+  src: images/home/curtain/window-cat.png
+  title: 等雨停
+  category: 萌宠
+  alt: 一只虎斑猫坐在窗台上，望着玻璃外的细雨
+  position: center
