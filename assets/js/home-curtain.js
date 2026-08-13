@@ -120,9 +120,28 @@
   }
 
   function bindHeroes(documentRoot) {
-    documentRoot.querySelectorAll("[data-curtain-hero]").forEach((hero) => {
+    const heroes = Array.from(documentRoot.querySelectorAll("[data-curtain-hero]"));
+
+    heroes.forEach((hero) => {
       bindHero(hero);
     });
+
+    const windowRoot = documentRoot.defaultView;
+    const primaryHero = heroes[0];
+
+    if (windowRoot && primaryHero) {
+      const updateHeaderTone = () => {
+        const revealPoint = primaryHero.offsetTop + primaryHero.offsetHeight - 80;
+        documentRoot.documentElement.classList.toggle(
+          "ec-curtain-scrolled",
+          windowRoot.scrollY >= revealPoint,
+        );
+      };
+
+      updateHeaderTone();
+      windowRoot.addEventListener("scroll", updateHeaderTone, { passive: true });
+      windowRoot.addEventListener("resize", updateHeaderTone);
+    }
   }
 
   return {
