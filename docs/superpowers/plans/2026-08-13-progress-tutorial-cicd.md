@@ -34,13 +34,13 @@
 - Copy: `.tools/prod-desktop.png` to the article bundle
 - Copy: `.tools/prod-mobile-expanded.png` to the article bundle
 
-- [ ] Write a failing content contract for the article metadata, required learning sections, and four local assets.
-- [ ] Run `node --test tests/content-contract.test.js` and confirm it fails because the bundle does not exist.
-- [ ] Add sanitized desktop and mobile screenshots with no origin IP or private paths.
-- [ ] Draw an architecture diagram and an artifact-to-production deployment diagram.
-- [ ] Write the Chinese tutorial covering design intent, progressive disclosure, Hugo resources, JavaScript calculations, accessibility, tests, deployment, rollback, and a learning path.
-- [ ] Cite primary documentation for Hugo, GitHub Actions, Cloudflare, and WCAG claims.
-- [ ] Run the content contract and a production Hugo build.
+- [x] Write a failing content contract for the article metadata, required learning sections, and four local assets.
+- [x] Run `node --test tests/content-contract.test.js` and confirm it fails because the bundle does not exist.
+- [x] Add sanitized desktop and mobile screenshots with no origin IP or private paths.
+- [x] Draw an architecture diagram and an artifact-to-production deployment diagram.
+- [x] Write the Chinese tutorial covering design intent, progressive disclosure, Hugo resources, JavaScript calculations, accessibility, tests, deployment, rollback, and a learning path.
+- [x] Cite primary documentation for Hugo, GitHub Actions, Cloudflare, and WCAG claims.
+- [x] Run the content contract and a production Hugo build.
 
 ## Task 3: Turn README into an operating guide
 

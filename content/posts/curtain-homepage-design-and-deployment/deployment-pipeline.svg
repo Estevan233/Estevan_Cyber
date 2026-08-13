@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="680" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+  <title id="title">GitHub Actions 到 Oracle VPS 的发布流程</title>
+  <desc id="desc">代码提交后完成测试和 Hugo 构建，生成制品，经生产环境保护后上传、校验、备份、原子切换并探测，失败自动回滚。</desc>
+  <rect width="1200" height="680" fill="#f7f8f6"/>
+  <text x="62" y="70" fill="#183b36" font-family="Arial, sans-serif" font-size="32" font-weight="700">从提交到生产：同一份制品，可验证、可回滚</text>
+  <text x="62" y="105" fill="#5f716d" font-family="Arial, sans-serif" font-size="18">构建只发生一次，生产服务器不再临时拉代码和编译</text>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <rect x="62" y="165" width="180" height="92" rx="8" fill="#ffffff" stroke="#a9bbb6" stroke-width="2"/>
+    <text x="152" y="202" fill="#183b36" font-size="19" font-weight="700">Push / PR</text>
+    <text x="152" y="230" fill="#5f716d" font-size="15">Markdown + 代码</text>
+    <path d="M242 211 H294" stroke="#2f8f7f" stroke-width="4" marker-end="url(#arrow)"/>
+    <rect x="294" y="145" width="220" height="132" rx="8" fill="#e7f4f0" stroke="#2f8f7f" stroke-width="2"/>
+    <text x="404" y="184" fill="#183b36" font-size="19" font-weight="700">Verify Job</text>
+    <text x="404" y="214" fill="#5f716d" font-size="15">Node tests</text>
+    <text x="404" y="238" fill="#5f716d" font-size="15">Hugo production build</text>
+    <text x="404" y="262" fill="#5f716d" font-size="15">关键文件检查</text>
+    <path d="M514 211 H566" stroke="#2f8f7f" stroke-width="4" marker-end="url(#arrow)"/>
+    <rect x="566" y="165" width="190" height="92" rx="8" fill="#183b36"/>
+    <text x="661" y="202" fill="#ffffff" font-size="19" font-weight="700">public artifact</text>
+    <text x="661" y="230" fill="#d9e9e5" font-size="15">不可变构建结果</text>
+    <path d="M756 211 H808" stroke="#2f8f7f" stroke-width="4" marker-end="url(#arrow)"/>
+    <rect x="808" y="145" width="330" height="132" rx="8" fill="#fff5df" stroke="#d18b2c" stroke-width="2"/>
+    <text x="973" y="184" fill="#6c4819" font-size="19" font-weight="700">production Environment</text>
+    <text x="973" y="214" fill="#775f40" font-size="15">仅 main + 显式启用变量</text>
+    <text x="973" y="238" fill="#775f40" font-size="15">审批与分支保护</text>
+    <text x="973" y="262" fill="#775f40" font-size="15">环境级 SSH secret</text>
+  </g>
+  <path d="M973 277 V337 H152" fill="none" stroke="#2f8f7f" stroke-width="4" marker-end="url(#arrow)"/>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <rect x="62" y="337" width="180" height="102" rx="8" fill="#ffffff" stroke="#a9bbb6" stroke-width="2"/>
+    <text x="152" y="376" fill="#183b36" font-size="19" font-weight="700">远端暂存</text>
+    <text x="152" y="405" fill="#5f716d" font-size="15">独立 release 目录</text>
+    <path d="M242 388 H294" stroke="#2f8f7f" stroke-width="4" marker-end="url(#arrow)"/>
+    <rect x="294" y="337" width="180" height="102" rx="8" fill="#ffffff" stroke="#a9bbb6" stroke-width="2"/>
+    <text x="384" y="376" fill="#183b36" font-size="19" font-weight="700">校验与备份</text>
+    <text x="384" y="405" fill="#5f716d" font-size="15">标记 / 归档 / 权限</text>
+    <path d="M474 388 H526" stroke="#2f8f7f" stroke-width="4" marker-end="url(#arrow)"/>
+    <rect x="526" y="337" width="180" height="102" rx="8" fill="#e7f4f0" stroke="#2f8f7f" stroke-width="2"/>
+    <text x="616" y="376" fill="#183b36" font-size="19" font-weight="700">原子切换</text>
+    <text x="616" y="405" fill="#5f716d" font-size="15">目录 rename</text>
+    <path d="M706 388 H758" stroke="#2f8f7f" stroke-width="4" marker-end="url(#arrow)"/>
+    <rect x="758" y="337" width="180" height="102" rx="8" fill="#ffffff" stroke="#a9bbb6" stroke-width="2"/>
+    <text x="848" y="376" fill="#183b36" font-size="19" font-weight="700">生产探针</text>
+    <text x="848" y="405" fill="#5f716d" font-size="15">Nginx + HTTPS</text>
+    <path d="M938 388 H990" stroke="#2f8f7f" stroke-width="4" marker-end="url(#arrow)"/>
+    <rect x="990" y="337" width="148" height="102" rx="8" fill="#183b36"/>
+    <text x="1064" y="376" fill="#ffffff" font-size="19" font-weight="700">上线</text>
+    <text x="1064" y="405" fill="#d9e9e5" font-size="15">记录 Git SHA</text>
+  </g>
+  <path d="M848 439 V520 H616" fill="none" stroke="#c44f4f" stroke-width="4" stroke-dasharray="9 7" marker-end="url(#arrowRed)"/>
+  <rect x="444" y="520" width="344" height="92" rx="8" fill="#fff0f0" stroke="#c44f4f" stroke-width="2"/>
+  <text x="616" y="558" fill="#7d2828" font-family="Arial, sans-serif" font-size="20" font-weight="700" text-anchor="middle">探针失败：恢复 rollback 目录</text>
+  <text x="616" y="586" fill="#8b5555" font-family="Arial, sans-serif" font-size="15" text-anchor="middle">保留归档和日志，再调查故障原因</text>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2f8f7f"/></marker>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#c44f4f"/></marker>
+  </defs>
+</svg>
