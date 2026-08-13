@@ -1,0 +1,50 @@
+{{ with hugo.Data.playlist }}
+<section class="ec-side-section" aria-labelledby="ec-playlist-title">
+  <details class="ec-playlist" data-home-player>
+    <summary>
+      <span>
+        <small>Listen</small>
+        <strong id="ec-playlist-title">夜间歌单</strong>
+      </span>
+      <span class="ec-playlist__count">{{ len . }} 首</span>
+    </summary>
+    <div class="ec-playlist__body">
+      {{ with index . 0 }}
+      <p class="ec-playlist__now" aria-live="polite">
+        <span>正在播放</span>
+        <strong data-now-playing>{{ .title }} · {{ .artist }}</strong>
+      </p>
+      <audio class="ec-playlist__audio" data-player-audio controls preload="metadata" src="{{ .src }}">
+        你的浏览器不支持 HTML 音频播放。
+      </audio>
+      {{ end }}
+      <div class="ec-playlist__transport" aria-label="歌单切换">
+        <button type="button" data-player-previous aria-label="播放上一首">上一首</button>
+        <button type="button" data-player-next aria-label="播放下一首">下一首</button>
+      </div>
+      <ol class="ec-playlist__tracks">
+        {{ range $index, $track := . }}
+        <li>
+          <button
+            type="button"
+            class="ec-playlist__track{{ if eq $index 0 }} is-active{{ end }}"
+            data-player-track
+            data-src="{{ $track.src }}"
+            data-title="{{ $track.title }}"
+            data-artist="{{ $track.artist }}"
+            aria-pressed="{{ if eq $index 0 }}true{{ else }}false{{ end }}"
+          >
+            <span>{{ printf "%02d" (add $index 1) }}</span>
+            <span>
+              <strong>{{ $track.title }}</strong>
+              <small>{{ $track.artist }} · {{ $track.license }}</small>
+            </span>
+          </button>
+        </li>
+        {{ end }}
+      </ol>
+      <p class="ec-playlist__status" data-player-status aria-live="polite"></p>
+    </div>
+  </details>
+</section>
+{{ end }}

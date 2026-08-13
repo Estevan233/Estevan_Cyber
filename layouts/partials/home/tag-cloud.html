@@ -1,0 +1,24 @@
+{{ with site.Taxonomies.tags.ByCount }}
+<section class="ec-side-section ec-tags" aria-labelledby="ec-tags-title">
+  <div class="ec-side-section__heading ec-side-section__heading--inline">
+    <div>
+      <p>Explore</p>
+      <h2 id="ec-tags-title">标签云</h2>
+    </div>
+    <a href="/tags/">全部标签</a>
+  </div>
+  <div class="ec-tag-cloud">
+    {{ range first 18 . }}
+      {{ $weight := "small" }}
+      {{ if ge .Count 5 }}
+        {{ $weight = "large" }}
+      {{ else if ge .Count 3 }}
+        {{ $weight = "medium" }}
+      {{ end }}
+      <a class="ec-tag ec-tag--{{ $weight }}" href="{{ .Page.RelPermalink }}">
+        <span>{{ .Page.Title }}</span><sup>{{ .Count }}</sup>
+      </a>
+    {{ end }}
+  </div>
+</section>
+{{ end }}

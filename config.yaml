@@ -1,5 +1,5 @@
 baseURL: "https://blog.estevancyber.net/"
-languageCode: "zh-cn"
+locale: "zh-cn"
 title: "Estevan Cyber"
 theme: "PaperMod"
 
@@ -11,7 +11,7 @@ outputs:
 
 params:
   env: production
-  defaultTheme: auto
+  defaultTheme: light
   ShowReadingTime: true
   ShowShareButtons: false
   ShowPostNavLinks: true
