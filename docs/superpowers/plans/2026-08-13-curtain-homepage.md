@@ -29,7 +29,7 @@
 - Modify: `tests/homepage-contract.test.js`
 - Test: `tests/homepage-contract.test.js`
 
-- [ ] **Step 1: Write failing structural tests**
+- [x] **Step 1: Write failing structural tests**
 
 Add assertions that `layouts/index.html` renders `home/overview.html`, includes `id="home-content"`, and loads `js/home-curtain.js`. Assert that the Hero contains `data-curtain-hero`, `data-hero-image`, and a link to `#home-content`. Assert that progress contains only `period: year`.
 
@@ -50,13 +50,13 @@ test("homepage reveals an overview below the curtain hero", () => {
 });
 ```
 
-- [ ] **Step 2: Verify the contract fails**
+- [x] **Step 2: Verify the contract fails**
 
 Run: `node --test tests/homepage-contract.test.js`
 
 Expected: FAIL because `home/overview.html`, `home-curtain.js`, and curtain attributes do not exist.
 
-- [ ] **Step 3: Keep the test red and commit it**
+- [x] **Step 3: Keep the test red and commit it**
 
 ```powershell
 git add tests/homepage-contract.test.js
@@ -70,7 +70,7 @@ git commit -m "test: define curtain homepage contract"
 - Create: `assets/js/home-curtain.js`
 - Test: `tests/home-curtain.test.js`
 
-- [ ] **Step 1: Write failing unit tests**
+- [x] **Step 1: Write failing unit tests**
 
 Test the wished-for CommonJS API:
 
@@ -103,25 +103,25 @@ test("empty galleries return a safe fallback", () => {
 });
 ```
 
-- [ ] **Step 2: Verify tests fail for the missing module**
+- [x] **Step 2: Verify tests fail for the missing module**
 
 Run: `node --test tests/home-curtain.test.js`
 
 Expected: FAIL with `MODULE_NOT_FOUND`.
 
-- [ ] **Step 3: Implement the minimal pure functions and DOM binder**
+- [x] **Step 3: Implement the minimal pure functions and DOM binder**
 
 Use the existing universal module pattern from `home-progress.js`. The exported API must include the four tested functions and `bindHero`. `bindHero` reads JSON from `[data-hero-gallery]`, selects the current item, writes `src`, `srcset`, `alt`, caption, and category into the one real image element, then adds `is-ready` on image load or immediately when cached.
 
 The first gallery item remains the no-JavaScript fallback. Non-active gallery entries must appear only as JSON metadata and never as additional `<img src>` nodes.
 
-- [ ] **Step 4: Verify the new tests and existing tests pass**
+- [x] **Step 4: Verify the new tests and existing tests pass**
 
 Run: `node --test tests/home-curtain.test.js tests/home-progress.test.js tests/home-player.test.js`
 
 Expected: all tests PASS.
 
-- [ ] **Step 5: Commit the rotation module**
+- [x] **Step 5: Commit the rotation module**
 
 ```powershell
 git add tests/home-curtain.test.js assets/js/home-curtain.js
@@ -139,11 +139,11 @@ git commit -m "feat: add daily curtain image rotation"
 - Create: `assets/images/home/curtain/window-cat.png`
 - Create: `data/hero-images.yaml`
 
-- [ ] **Step 1: Reuse the existing original studio image**
+- [x] **Step 1: Reuse the existing original studio image**
 
 Copy `assets/images/home/hybrid-studio-hero.png` to `assets/images/home/curtain/evening-studio.png`. It is already an original generated asset and fits the cinematic category.
 
-- [ ] **Step 2: Generate five distinct wide images with built-in ImageGen**
+- [x] **Step 2: Generate five distinct wide images with built-in ImageGen**
 
 Issue one built-in generation call per asset. All prompts require a photorealistic editorial image, 16:9 landscape framing, no text, logo, watermark, trademark, celebrity, recognizable fictional character, or UI. Preserve usable negative space and clear focal subjects for responsive `cover` cropping.
 
@@ -155,19 +155,19 @@ Prompt subjects:
 4. `quiet-portrait.png`: anonymous adult reading beside a large window, face not identity-defining, candid editorial composition.
 5. `window-cat.png`: charming domestic cat watching rain from a bright windowsill, realistic fur, calm mood.
 
-- [ ] **Step 3: Inspect every generated image**
+- [x] **Step 3: Inspect every generated image**
 
 Use `view_image` for all five outputs. Reject and regenerate any image with garbled text, branded objects, distorted face/paws, poor subject crop, or unusable 16:9 composition.
 
-- [ ] **Step 4: Copy approved outputs into the workspace**
+- [x] **Step 4: Copy approved outputs into the workspace**
 
 Use stable filenames listed above. Do not reference files under `.codex/generated_images` from the site.
 
-- [ ] **Step 5: Add gallery metadata**
+- [x] **Step 5: Add gallery metadata**
 
 Create six YAML records with `id`, `src`, `title`, `category`, `alt`, and `position`. Use `position: center`, `center 40%`, or a side-biased focal point only when visual inspection proves it is needed.
 
-- [ ] **Step 6: Commit gallery sources and data**
+- [x] **Step 6: Commit gallery sources and data**
 
 ```powershell
 git add assets/images/home/curtain data/hero-images.yaml
@@ -183,13 +183,13 @@ git commit -m "feat: add daily curtain gallery"
 - Modify: `layouts/index.html`
 - Test: `tests/homepage-contract.test.js`
 
-- [ ] **Step 1: Render responsive processed image metadata**
+- [x] **Step 1: Render responsive processed image metadata**
 
 In `hero.html`, iterate over `hugo.Data.hero-images`, resolve each global image with `resources.Get`, and create mobile `Fill "900x1200 ... webp q82"` and desktop `Fill "1920x1080 ... webp q84"` resources. Serialize URLs, dimensions, alt, caption, category, and position to a JSON script with `data-hero-gallery`.
 
 Render exactly one `<picture>` and one `<img data-hero-image>`, initialized with the first item as a no-JavaScript fallback. Keep `loading="eager"`, `fetchpriority="high"`, explicit dimensions, and a `<noscript>`-safe result.
 
-- [ ] **Step 2: Reduce Hero content**
+- [x] **Step 2: Reduce Hero content**
 
 Keep only the eyebrow, H1, one subtitle, daily image caption, and an accessible down link:
 
@@ -200,15 +200,15 @@ Keep only the eyebrow, H1, one subtitle, daily image caption, and an accessible 
 </a>
 ```
 
-- [ ] **Step 3: Create the overview partial**
+- [x] **Step 3: Create the overview partial**
 
 `overview.html` must compose progress, tag cloud, and playlist in that order inside `.ec-overview` with an introductory heading that is visually compact.
 
-- [ ] **Step 4: Simplify progress to the annual value**
+- [x] **Step 4: Simplify progress to the annual value**
 
 Render one item with `data-period="year"`, `今年已经走过`, percentage text, and one progress bar.
 
-- [ ] **Step 5: Recompose the homepage**
+- [x] **Step 5: Recompose the homepage**
 
 After Hero, render:
 
@@ -225,19 +225,19 @@ After Hero, render:
 
 Add the fingerprinted `home-curtain.js` before the existing progress and player scripts.
 
-- [ ] **Step 6: Run the red contract test to green**
+- [x] **Step 6: Run the red contract test to green**
 
 Run: `node --test tests/homepage-contract.test.js tests/home-curtain.test.js`
 
 Expected: all tests PASS.
 
-- [ ] **Step 7: Build with Hugo and fix template errors**
+- [x] **Step 7: Build with Hugo and fix template errors**
 
 Run: `.\.tools\hugo\hugo.exe --gc --minify --environment production`
 
 Expected: exit 0; all six sources are processed without a missing resource.
 
-- [ ] **Step 8: Commit template composition**
+- [x] **Step 8: Commit template composition**
 
 ```powershell
 git add layouts tests/homepage-contract.test.js
@@ -249,31 +249,31 @@ git commit -m "feat: compose curtain homepage reveal"
 **Files:**
 - Modify: `assets/css/extended/custom.css`
 
-- [ ] **Step 1: Implement full-viewport Hero**
+- [x] **Step 1: Implement full-viewport Hero**
 
 Use normal document flow with `min-height: 100vh; min-height: 100svh`. The media fills the Hero with `object-fit: cover` and its data-driven `object-position`. Use one restrained dark overlay for text contrast. Keep content bottom-left, bounded by the existing content width.
 
-- [ ] **Step 2: Implement natural reveal**
+- [x] **Step 2: Implement natural reveal**
 
 Give `.ec-home-curtain` a solid page background, `position: relative`, `z-index: 2`, and a subtle top shadow. Do not use fixed Hero positioning, scroll locking, or mandatory snap. Give `#home-content` a correct `scroll-margin-top`.
 
-- [ ] **Step 3: Lift and compact overview modules**
+- [x] **Step 3: Lift and compact overview modules**
 
 Desktop `.ec-overview__grid` uses `0.8fr 1.35fr 1fr`. Remove repeated large card headings and nested surfaces. Use borders and whitespace for structure. Keep the playlist collapsed by default.
 
-- [ ] **Step 4: Rebuild reading hierarchy**
+- [x] **Step 4: Rebuild reading hierarchy**
 
 Use a `2fr 1fr` reading grid. Preserve compact article rows and render focus as the only sidebar module.
 
-- [ ] **Step 5: Add responsive rules**
+- [x] **Step 5: Add responsive rules**
 
 At 1023px use two overview columns with playlist spanning both. At 719px use one column, stack content, keep the Hero copy readable, and provide a 44px discover control. Protect text and subject crops.
 
-- [ ] **Step 6: Respect reduced motion**
+- [x] **Step 6: Respect reduced motion**
 
 Under `prefers-reduced-motion: reduce`, disable smooth scrolling, image fade, arrow movement, and transition effects.
 
-- [ ] **Step 7: Commit visual implementation**
+- [x] **Step 7: Commit visual implementation**
 
 ```powershell
 git add assets/css/extended/custom.css
@@ -285,33 +285,33 @@ git commit -m "feat: style natural curtain homepage"
 **Files:**
 - Modify only when a concrete defect is observed: `layouts/partials/home/*.html`, `layouts/index.html`, `assets/css/extended/custom.css`, `assets/js/home-curtain.js`
 
-- [ ] **Step 1: Start the local server**
+- [x] **Step 1: Start the local server**
 
 Run: `.\.tools\hugo\hugo.exe server --bind 127.0.0.1 --port 1313 --disableFastRender`
 
 Expected: `http://127.0.0.1:1313/` returns 200.
 
-- [ ] **Step 2: Verify desktop at 1440×900**
+- [x] **Step 2: Verify desktop at 1440×900**
 
 Check first-screen information density, daily caption, discover link, natural reveal, overview alignment, article/focus hierarchy, light and dark themes, playlist behavior, and console errors.
 
-- [ ] **Step 3: Verify tablet at 768×1024**
+- [x] **Step 3: Verify tablet at 768×1024**
 
 Check the two-column overview, full-width playlist row, navigation, image crop, and no overflow.
 
-- [ ] **Step 4: Verify mobile at 390×844**
+- [x] **Step 4: Verify mobile at 390×844**
 
 Check `svh` behavior, copy wrapping, 44px discover target, one-column overview order, tag wrapping, collapsed playlist, and no overflow.
 
-- [ ] **Step 5: Verify daily rotation without loading six images**
+- [x] **Step 5: Verify daily rotation without loading six images**
 
 In the browser, confirm one real Hero `<img>` exists, the selected metadata matches one YAML record, and only the chosen picture has network-fetchable `src`/`srcset`. Use the pure unit tests to validate date changes rather than altering production time.
 
-- [ ] **Step 6: Verify reduced motion**
+- [x] **Step 6: Verify reduced motion**
 
 Emulate `prefers-reduced-motion: reduce` where supported or inspect the matching computed styles. Confirm smooth scrolling and transitions are disabled.
 
-- [ ] **Step 7: Fix concrete QA defects and commit**
+- [x] **Step 7: Fix concrete QA defects and commit**
 
 ```powershell
 git add layouts assets tests
@@ -325,25 +325,25 @@ Skip the commit only if QA produces no changes.
 **Files:**
 - Modify: `docs/superpowers/plans/2026-08-13-curtain-homepage.md`
 
-- [ ] **Step 1: Run all automated tests**
+- [x] **Step 1: Run all automated tests**
 
 Run: `node --test tests/*.test.js`
 
 Expected: all tests PASS with zero failures.
 
-- [ ] **Step 2: Run the production build**
+- [x] **Step 2: Run the production build**
 
 Run: `.\.tools\hugo\hugo.exe --gc --minify --environment production`
 
 Expected: exit 0 with no missing image or template errors. Existing PaperMod language deprecation warnings may remain.
 
-- [ ] **Step 3: Run repository checks**
+- [x] **Step 3: Run repository checks**
 
 Run: `git diff --check main..HEAD` and scan changed files for passwords, tokens, private keys, old VPS credentials, and local absolute paths.
 
 Expected: no findings.
 
-- [ ] **Step 4: Mark this plan complete and commit the record**
+- [x] **Step 4: Mark this plan complete and commit the record**
 
 Change all completed checkboxes to `[x]`, then:
 
@@ -352,6 +352,6 @@ git add docs/superpowers/plans/2026-08-13-curtain-homepage.md
 git commit -m "docs: complete curtain homepage plan"
 ```
 
-- [ ] **Step 5: Push and update PR #4**
+- [x] **Step 5: Push and update PR #4**
 
 Push `codex/hybrid-studio-homepage`, update the draft PR summary with the curtain experience, daily local gallery, verification results, and image provenance. Do not merge or deploy production.
