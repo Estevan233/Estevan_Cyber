@@ -48,10 +48,10 @@
 - Create: `tests/readme-contract.test.js`
 - Modify: `README.md`
 
-- [ ] Write a failing README contract for project identity, architecture, local development, writing, testing, deployment, and security sections.
-- [ ] Replace the placeholder README with a concise repository guide and Mermaid architecture diagram.
-- [ ] Document how to create a page bundle, update homepage data, run tests, build production output, and configure the production environment.
-- [ ] Run `node --test tests/readme-contract.test.js`.
+- [x] Write a failing README contract for project identity, architecture, local development, writing, testing, deployment, and security sections.
+- [x] Replace the placeholder README with a concise repository guide and Mermaid architecture diagram.
+- [x] Document how to create a page bundle, update homepage data, run tests, build production output, and configure the production environment.
+- [x] Run `node --test tests/readme-contract.test.js`.
 
 ## Task 4: Add guarded GitHub Actions deployment
 
