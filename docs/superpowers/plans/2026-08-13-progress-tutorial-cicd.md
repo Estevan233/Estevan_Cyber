@@ -75,11 +75,11 @@
 - Verify: generated `public/`
 - Capture: local browser screenshots as QA evidence
 
-- [ ] Run the complete Node test suite.
-- [ ] Run `hugo --gc --minify --environment production --cleanDestinationDir`.
-- [ ] Check generated homepage and article markers.
-- [ ] Inspect homepage progress and tutorial article at desktop and mobile widths.
-- [ ] Confirm no horizontal overflow, clipped controls, missing images, or console errors.
+- [x] Run the complete Node test suite.
+- [x] Run `hugo --gc --minify --environment production --cleanDestinationDir`.
+- [x] Check generated homepage and article markers.
+- [x] Inspect homepage progress and tutorial article at desktop and mobile widths.
+- [x] Confirm no horizontal overflow, clipped controls, missing images, or console errors.
 
 ## Task 6: Review, merge, and deploy the exact release
 
