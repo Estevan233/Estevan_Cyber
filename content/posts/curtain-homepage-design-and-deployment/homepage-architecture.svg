@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">个人网站页面与服务架构</title>
+  <desc id="desc">访客经过 Cloudflare 和 Nginx 访问 Hugo 静态站点，问答请求被转发到独立 API。</desc>
+  <rect width="1200" height="720" fill="#f6f8f7"/>
+  <text x="70" y="78" fill="#183b36" font-family="Arial, sans-serif" font-size="32" font-weight="700">Estevan Cyber 页面与服务架构</text>
+  <text x="70" y="112" fill="#5f716d" font-family="Arial, sans-serif" font-size="18">内容与服务解耦，静态首页保持快速、可缓存、可回滚</text>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <rect x="70" y="185" width="180" height="82" rx="8" fill="#ffffff" stroke="#a9bbb6" stroke-width="2"/>
+    <text x="160" y="219" fill="#183b36" font-size="20" font-weight="700">访客浏览器</text>
+    <text x="160" y="246" fill="#5f716d" font-size="15">桌面 / 手机</text>
+    <path d="M250 226 H340" stroke="#2f8f7f" stroke-width="4" marker-end="url(#arrow)"/>
+    <rect x="340" y="185" width="190" height="82" rx="8" fill="#e6f3ef" stroke="#2f8f7f" stroke-width="2"/>
+    <text x="435" y="219" fill="#183b36" font-size="20" font-weight="700">Cloudflare</text>
+    <text x="435" y="246" fill="#5f716d" font-size="15">DNS / TLS / CDN</text>
+    <path d="M530 226 H620" stroke="#2f8f7f" stroke-width="4" marker-end="url(#arrow)"/>
+    <rect x="620" y="185" width="190" height="82" rx="8" fill="#ffffff" stroke="#a9bbb6" stroke-width="2"/>
+    <text x="715" y="219" fill="#183b36" font-size="20" font-weight="700">Nginx 源站</text>
+    <text x="715" y="246" fill="#5f716d" font-size="15">Host 路由 / HTTPS</text>
+    <path d="M810 226 H900" stroke="#2f8f7f" stroke-width="4" marker-end="url(#arrow)"/>
+    <rect x="900" y="160" width="230" height="132" rx="8" fill="#183b36"/>
+    <text x="1015" y="204" fill="#ffffff" font-size="22" font-weight="700">Hugo 静态站点</text>
+    <text x="1015" y="234" fill="#d9e9e5" font-size="15">HTML / CSS / JavaScript</text>
+    <text x="1015" y="261" fill="#d9e9e5" font-size="15">Markdown Page Bundles</text>
+  </g>
+  <g font-family="Arial, sans-serif">
+    <text x="70" y="365" fill="#183b36" font-size="23" font-weight="700">首页功能模块</text>
+    <rect x="70" y="395" width="230" height="94" rx="8" fill="#ffffff" stroke="#c9d6d2"/>
+    <text x="92" y="431" fill="#183b36" font-size="19" font-weight="700">每日首屏图片</text>
+    <text x="92" y="462" fill="#5f716d" font-size="15">本地资源 · 日期稳定轮换</text>
+    <rect x="330" y="395" width="230" height="94" rx="8" fill="#ffffff" stroke="#c9d6d2"/>
+    <text x="352" y="431" fill="#183b36" font-size="19" font-weight="700">时间进度</text>
+    <text x="352" y="462" fill="#5f716d" font-size="15">今天 · 本周 · 本月 · 今年</text>
+    <rect x="590" y="395" width="230" height="94" rx="8" fill="#ffffff" stroke="#c9d6d2"/>
+    <text x="612" y="431" fill="#183b36" font-size="19" font-weight="700">标签与歌单</text>
+    <text x="612" y="462" fill="#5f716d" font-size="15">Hugo taxonomy · 自托管音频</text>
+    <rect x="850" y="395" width="280" height="94" rx="8" fill="#ffffff" stroke="#c9d6d2"/>
+    <text x="872" y="431" fill="#183b36" font-size="19" font-weight="700">文章与项目入口</text>
+    <text x="872" y="462" fill="#5f716d" font-size="15">渐进披露后的主要内容</text>
+  </g>
+  <g font-family="Arial, sans-serif">
+    <path d="M715 267 V572 H850" fill="none" stroke="#d18b2c" stroke-width="4" marker-end="url(#arrowAmber)"/>
+    <rect x="850" y="536" width="280" height="112" rx="8" fill="#fff5df" stroke="#d18b2c" stroke-width="2"/>
+    <text x="990" y="574" fill="#6c4819" font-size="20" font-weight="700" text-anchor="middle">独立问答 API</text>
+    <text x="990" y="604" fill="#775f40" font-size="15" text-anchor="middle">Nginx 反向代理到本机服务</text>
+    <text x="990" y="629" fill="#775f40" font-size="15" text-anchor="middle">与静态发布生命周期解耦</text>
+  </g>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2f8f7f"/></marker>
+    <marker id="arrowAmber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#d18b2c"/></marker>
+  </defs>
+</svg>

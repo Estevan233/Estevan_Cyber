@@ -1,12 +1,33 @@
 <section class="ec-side-section ec-progress" aria-labelledby="ec-progress-title">
   <div class="ec-side-section__heading">
     <p>Local time</p>
-    <h2 id="ec-progress-title">年度进度</h2>
+    <h2 id="ec-progress-title">时间进度</h2>
   </div>
   <div class="ec-progress__list">
+    <div class="ec-progress__item" data-period="day">
+      <div>
+        <span>今天</span>
+        <strong data-progress-value>0%</strong>
+      </div>
+      <progress max="100" value="0" aria-label="今天时间进度">0%</progress>
+    </div>
+    <div class="ec-progress__item" data-period="week">
+      <div>
+        <span>本周</span>
+        <strong data-progress-value>0%</strong>
+      </div>
+      <progress max="100" value="0" aria-label="本周时间进度">0%</progress>
+    </div>
+    <div class="ec-progress__item" data-period="month">
+      <div>
+        <span>本月</span>
+        <strong data-progress-value>0%</strong>
+      </div>
+      <progress max="100" value="0" aria-label="本月时间进度">0%</progress>
+    </div>
     <div class="ec-progress__item" data-period="year">
       <div>
-        <span>今年已经走过</span>
+        <span>今年</span>
         <strong data-progress-value>0%</strong>
       </div>
       <progress max="100" value="0" aria-label="今年时间进度">0%</progress>

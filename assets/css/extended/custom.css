@@ -406,7 +406,7 @@ html.ec-curtain-scrolled body:has(.ec-home) .header .theme-toggle {
 
 .ec-overview .ec-progress__item strong {
   color: var(--ec-accent-strong);
-  font-size: 2.5rem;
+  font-size: 1.35rem;
   line-height: 1;
 }
 
@@ -603,6 +603,7 @@ html.ec-curtain-scrolled body:has(.ec-home) .header .theme-toggle {
 
 .ec-progress__list {
   display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 15px;
   margin-top: 18px;
 }
@@ -1232,6 +1233,10 @@ html.ec-curtain-scrolled body:has(.ec-home) .header .theme-toggle {
 
   .ec-overview .ec-side-section:first-child {
     padding-top: 20px;
+  }
+
+  .ec-progress__list {
+    grid-template-columns: 1fr;
   }
 
   .ec-reading-grid {
