@@ -147,6 +147,7 @@ hugo --gc --minify --environment production --cleanDestinationDir
 | Environment variable | `VPS_USER` | SSH 用户 |
 | Environment variable | `VPS_PORT` | SSH 端口，可选，默认 22 |
 | Environment secret | `VPS_SSH_KEY` | 专用部署私钥完整内容 |
+| Environment secret | `VPS_HOST_KEY` | 预先核验的 `known_hosts` 公钥行 |
 
 建议为 `production` 设置 required reviewer 和仅 `main` 可部署的分支规则。首次启用前先手动运行 workflow，确认 artifact、暂存路径、备份和探针都符合预期。
 
@@ -156,6 +157,7 @@ hugo --gc --minify --environment production --cleanDestinationDir
 
 - 不在仓库、文章、Issue、Actions 日志中提交真实私钥、API key、token 或 `.env`。
 - `VPS_SSH_KEY` 使用专用低权限部署密钥，不复用个人管理员私钥。
+- `VPS_HOST_KEY` 从已核验的 SSH 会话获取，不在工作流中临时抓取并盲目信任。
 - 源站 IP、内部端口和本机路径在公开教程中使用示例值或抽象名称。
 - GitHub Actions 使用最小 `contents: read` 权限，并固定第三方 Action 的提交 SHA。
 - Cloudflare 保持 `Full (strict)`，源站证书和密钥只保存在服务器。

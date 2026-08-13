@@ -32,6 +32,7 @@ test("README contains reproducible commands and deployment settings", () => {
     "hugo --gc --minify",
     "ENABLE_VPS_DEPLOY",
     "VPS_SSH_KEY",
+    "VPS_HOST_KEY",
     "production",
     "content/posts/",
     "data/playlist.yaml",

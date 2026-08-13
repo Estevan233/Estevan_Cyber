@@ -61,13 +61,13 @@
 - Create: `scripts/deploy-site.sh`
 - Create or modify: `.gitattributes`
 
-- [ ] Write a failing deployment contract for verification, artifacts, protected environment, explicit enable flag, concurrency, staging, backup, probes, and rollback.
-- [ ] Pin official GitHub actions to immutable commit SHAs.
-- [ ] Build and test on pull requests, `main` pushes, and manual dispatches.
-- [ ] Upload `public/` once and deploy the downloaded artifact only when `ENABLE_VPS_DEPLOY=true`.
-- [ ] Add a remote deployment script that rejects unsafe paths and malformed SHAs, validates markers, archives the active release, swaps directories, probes Nginx, and rolls back on failure.
-- [ ] Enforce LF line endings for shell scripts.
-- [ ] Run `node --test tests/deployment-contract.test.js` and `bash -n scripts/deploy-site.sh`.
+- [x] Write a failing deployment contract for verification, artifacts, protected environment, explicit enable flag, concurrency, staging, backup, probes, and rollback.
+- [x] Pin official GitHub actions to immutable commit SHAs.
+- [x] Build and test on pull requests, `main` pushes, and manual dispatches.
+- [x] Upload `public/` once and deploy the downloaded artifact only when `ENABLE_VPS_DEPLOY=true`.
+- [x] Add a remote deployment script that rejects unsafe paths and malformed SHAs, validates markers, archives the active release, swaps directories, probes Nginx, and rolls back on failure.
+- [x] Enforce LF line endings for shell scripts.
+- [x] Run `node --test tests/deployment-contract.test.js` and `bash -n scripts/deploy-site.sh`.
 
 ## Task 5: Verify responsive behavior and production output
 
