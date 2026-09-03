@@ -57,7 +57,7 @@
                     </svg>
                 </button>
                 {{- end }}
-
+                
                 {{- if (not site.Params.disableLangToggle) }}
                     {{- $lang := .Lang}}
                     {{- with site.Home.Translations }}
@@ -127,50 +127,30 @@
                         </defs>
                     </svg>
                     <div class="menu-dropdown__panel" role="menu" aria-label="{{ .Name }}">
-                        <p class="menu-dropdown__group-title" id="tools-group-internal">站内工具</p>
-                        <ul class="menu-dropdown__list menu-dropdown__group" aria-labelledby="tools-group-internal">
+                        <ul class="menu-dropdown__list">
                             {{- range .Children }}
-                            {{- if not (findRE "://" .URL) }}
                             {{- $icon := .Params.icon | default "tools" }}
+                            {{- $isExternal := (findRE "://" .URL) }}
                             <li role="none">
-                                <a role="menuitem" class="menu-dropdown__item" href="{{ .URL | absLangURL }}" title="{{ .Title | default .Name }}">
-                                    <span class="menu-dropdown__icon menu-dropdown__icon--{{ $icon }}" aria-hidden="true">
-                                        <svg class="menu-dropdown__glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#ec-icon-{{ $icon }}"></use></svg>
-                                    </span>
-                                    <span class="menu-dropdown__text">
-                                        <span class="menu-dropdown__name">{{- .Name -}}</span>
-                                        {{- with .Params.desc }}<span class="menu-dropdown__desc">{{ . }}</span>{{ end }}
-                                    </span>
-                                </a>
-                            </li>
-                            {{- end }}
-                            {{- end }}
-                        </ul>
-                        <hr class="menu-dropdown__sep" />
-                        <p class="menu-dropdown__group-title" id="tools-group-external">外部服务</p>
-                        <ul class="menu-dropdown__list menu-dropdown__group" aria-labelledby="tools-group-external">
-                            {{- range .Children }}
-                            {{- if (findRE "://" .URL) }}
-                            {{- $icon := .Params.icon | default "tools" }}
-                            <li role="none">
-                                <a role="menuitem" class="menu-dropdown__item" href="{{ .URL | absLangURL }}" title="{{ .Title | default .Name }}" target="_blank" rel="noopener">
-                                    <span class="menu-dropdown__icon menu-dropdown__icon--{{ $icon }}" aria-hidden="true">
+                                <a role="menuitem" class="menu-dropdown__item" href="{{ .URL | absLangURL }}" title="{{ .Title | default .Name }}"{{ if $isExternal }} target="_blank" rel="noopener"{{ end }}>
+                                    <span class="menu-dropdown__icon" aria-hidden="true">
                                         <svg class="menu-dropdown__glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#ec-icon-{{ $icon }}"></use></svg>
                                     </span>
                                     <span class="menu-dropdown__text">
                                         <span class="menu-dropdown__name">{{- .Name -}}
+                                            {{- if $isExternal }}
                                             <svg class="menu-dropdown__external" fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
                                                 stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="11" width="11" aria-hidden="true">
                                                 <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
                                                 <path d="M15 3h6v6"></path>
                                                 <path d="M10 14L21 3"></path>
                                             </svg>
+                                            {{- end }}
                                         </span>
                                         {{- with .Params.desc }}<span class="menu-dropdown__desc">{{ . }}</span>{{ end }}
                                     </span>
                                 </a>
                             </li>
-                            {{- end }}
                             {{- end }}
                         </ul>
                     </div>
@@ -209,6 +189,19 @@
             var summary = details.querySelector(":scope > summary.menu-dropdown__summary");
             if (summary) { summary.setAttribute("aria-expanded", details.hasAttribute("open") ? "true" : "false"); }
         }
+        function positionPanel(details) {
+            var panel = details.querySelector(":scope > .menu-dropdown__panel");
+            var summary = details.querySelector(":scope > summary.menu-dropdown__summary");
+            if (!panel || !summary) return;
+            var rect = summary.getBoundingClientRect();
+            var vw = window.innerWidth;
+            var pw = Math.min(320, vw - 24);
+            var right = vw - rect.right;
+            if (right + pw > vw - 8) { right = vw - pw - 8; }
+            if (right < 8) { right = 8; }
+            panel.style.right = right + "px";
+            panel.style.top = (rect.bottom + 6) + "px";
+        }
         document.querySelectorAll(".menu-dropdown details.menu-dropdown__details").forEach(function (details) {
             sync(details);
             details.addEventListener("toggle", function () {
@@ -216,6 +209,7 @@
                     document.querySelectorAll(".menu-dropdown details.menu-dropdown__details[open]").forEach(function (other) {
                         if (other !== details) { other.removeAttribute("open"); sync(other); }
                     });
+                    positionPanel(details);
                 }
                 sync(details);
             });
@@ -230,5 +224,14 @@
                 document.querySelectorAll(".menu-dropdown details.menu-dropdown__details[open]").forEach(function (details) { details.removeAttribute("open"); sync(details); });
             }
         });
+        var scrollTimer;
+        window.addEventListener("scroll", function () {
+            clearTimeout(scrollTimer);
+            scrollTimer = setTimeout(function () {
+                document.querySelectorAll(".menu-dropdown details.menu-dropdown__details[open]").forEach(function (details) {
+                    details.removeAttribute("open"); sync(details);
+                });
+            }, 50);
+        }, { passive: true });
     })();
 </script>

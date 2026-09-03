@@ -62,16 +62,18 @@ test("tools dropdown children stay data-driven with desc and icon params", () =>
   }
 });
 
-test("tools panel renders internal and external groups with a separator", () => {
+test("tools panel renders a flat list of all items (no group headings or separator)", () => {
   const header = read("layouts/_partials/header.html");
-  assert.match(header, /站内工具/);
-  assert.match(header, /外部服务/);
-  assert.match(header, /menu-dropdown__group-title/);
-  assert.match(header, /menu-dropdown__sep/);
   assert.match(header, /range \.Children/);
-  // Internal links render without target=_blank, external links keep it.
-  assert.ok(header.includes('if not (findRE "://" .URL)'), "internal group filter should exist");
-  assert.ok(header.includes('if (findRE "://" .URL)'), "external group filter should exist");
+  // Must NOT contain group titles or separator
+  assert.doesNotMatch(header, /menu-dropdown__group-title/);
+  assert.doesNotMatch(header, /menu-dropdown__sep/);
+  assert.doesNotMatch(header, /站内工具/);
+  assert.doesNotMatch(header, /外部服务/);
+  // Single flat list
+  assert.match(header, /menu-dropdown__list/);
+  // External filter still determines target=_blank
+  assert.ok(header.includes('if $isExternal'), "external flag should exist");
 });
 
 test("tools panel items render title plus one-line description", () => {
@@ -114,19 +116,27 @@ test("tools dropdown keeps click-outside and Escape close with aria sync", () =>
   assert.match(header, /addEventListener\("toggle"/);
 });
 
+test("tools panel uses fixed positioning to escape overflow, with scroll close", () => {
+  const header = read("layouts/_partials/header.html");
+  assert.match(header, /positionPanel/);
+  assert.match(header, /getBoundingClientRect/);
+  assert.match(header, /addEventListener\("scroll"/);
+});
+
 test("tools panel styling uses brand tokens with motion and mobile guards", () => {
   const css = read("assets/css/extended/custom.css");
   assert.match(css, /\.menu-dropdown__panel/);
   assert.match(css, /var\(--ec-surface\)/);
   assert.match(css, /var\(--ec-shadow\)/);
   assert.match(css, /var\(--ec-border\)/);
-  assert.match(css, /border-radius: 12px/);
-  assert.match(css, /menu-dropdown-in 150ms ease/);
-  assert.match(css, /max-width: min\(340px, calc\(100vw - 32px\)\)/);
+  assert.match(css, /border-radius: 10px/);
+  assert.match(css, /menu-dropdown-in 120ms ease/);
+  assert.match(css, /max-width: min\(320px, calc\(100vw - 24px\)\)/);
   assert.match(css, /@media \(max-width: 720px\)[\s\S]*?\.menu-dropdown__panel/);
-  assert.match(css, /@media \(max-width: 720px\)[\s\S]*?position: fixed/);
   assert.match(css, /\.menu-dropdown__item:hover/);
   assert.match(css, /\.menu-dropdown__item:focus-visible/);
   // Click-to-open only: hover must not force the panel open.
   assert.doesNotMatch(css, /\.menu-dropdown:hover \.menu-dropdown__panel/);
+  // Panel must use position:fixed (escape overflow)
+  assert.match(css, /position: fixed/);
 });
