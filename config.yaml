@@ -62,6 +62,10 @@ menu:
       name: 工具
       url: https://tools.estevancyber.net/
       weight: 40
+    - identifier: vps
+      name: VPS
+      url: https://vps.estevancyber.net/
+      weight: 45
     - identifier: about
       name: 关于
       url: /about/

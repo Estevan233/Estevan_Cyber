@@ -1,0 +1,128 @@
+{{ define "main" }}
+{{ $projects := .Site.Data.projects }}
+{{ $github := .Site.Data.github_repos }}
+{{ $langColors := dict
+  "Python" "#3572A5"
+  "TypeScript" "#3178c6"
+  "JavaScript" "#f1e05a"
+  "Vue" "#41b883"
+  "HTML" "#e34c26"
+  "CSS" "#563d7c"
+  "SCSS" "#c6538c"
+  "C" "#555555"
+  "C++" "#f34b7d"
+  "C#" "#178600"
+  "Go" "#00ADD8"
+  "Rust" "#dea584"
+  "Java" "#b07219"
+  "Dart" "#00B4AB"
+  "Shell" "#89e051"
+  "Jupyter Notebook" "#DA5B0B"
+  "Markdown" "#083fa1"
+}}
+
+<section class="ec-projects">
+  <header class="ec-projects__header">
+    <p class="ec-projects__eyebrow">Projects &amp; Infrastructure</p>
+    <h1>{{ .Title }}</h1>
+    {{ with $projects.intro }}<p class="ec-projects__intro">{{ . }}</p>{{ end }}
+  </header>
+
+  {{ with $github.repos }}
+  <div class="ec-projects__section">
+    <div class="ec-section-heading">
+      <div>
+        <p>Synced from GitHub</p>
+        <h2>开源仓库</h2>
+      </div>
+      <a href="{{ $github.source | safeURL }}" target="_blank" rel="noopener">在 GitHub 查看</a>
+    </div>
+    <div class="ec-projects__grid">
+      {{ range . }}
+      <a class="ec-project-card" href="{{ .html_url }}" target="_blank" rel="noopener">
+        <div class="ec-project-card__head">
+          <strong>{{ .name }}</strong>
+          {{ with .homepage }}<span class="ec-project-card__site" title="{{ . }}">站点</span>{{ end }}
+        </div>
+        <p>{{ with .description }}{{ . }}{{ else }}&nbsp;{{ end }}</p>
+        <div class="ec-project-card__meta">
+          <span class="ec-project-card__lang">
+            {{ $color := .language | default "" | index $langColors | default "#147d72" }}
+            <i style="--ec-lang: {{ $color }}"></i>{{ with .language }}{{ . }}{{ else }}Multi{{ end }}
+          </span>
+          {{ if gt .stargazers_count 0 }}<span>★ {{ .stargazers_count }}</span>{{ end }}
+          <span class="ec-project-card__pushed">{{ time .pushed_at | time.Format "2006-01" }}</span>
+        </div>
+        {{ with .topics }}
+        <div class="ec-project-card__topics">
+          {{ range first 3 . }}<span>{{ . }}</span>{{ end }}
+        </div>
+        {{ end }}
+      </a>
+      {{ end }}
+    </div>
+  </div>
+  {{ end }}
+
+  <div class="ec-projects__section">
+    <div class="ec-section-heading">
+      <div>
+        <p>Shipped</p>
+        <h2>已完成</h2>
+      </div>
+    </div>
+    <div class="ec-projects__grid ec-projects__grid--list">
+      {{ range $projects.done }}
+      {{ $internal := hasPrefix ( .url | default "" ) "/" }}
+      <a class="ec-project-card" href="{{ .url | default "/projects/" }}"{{ if not $internal }} target="_blank" rel="noopener"{{ end }}>
+        <div class="ec-project-card__head">
+          <strong>{{ .name }}</strong>
+          {{ if not .url }}<span class="ec-project-card__site">记录</span>{{ end }}
+        </div>
+        <p>{{ .desc }}</p>
+      </a>
+      {{ end }}
+    </div>
+  </div>
+
+  <div class="ec-projects__section">
+    <div class="ec-section-heading">
+      <div>
+        <p>Live services</p>
+        <h2>基础设施入口</h2>
+      </div>
+    </div>
+    <div class="ec-projects__grid">
+      {{ range $projects.infra }}
+      <a class="ec-project-card ec-project-card--infra" href="{{ .url }}" target="_blank" rel="noopener">
+        <div class="ec-project-card__head">
+          <strong>{{ .name }}</strong>
+          {{ with .badge }}<span class="ec-project-card__badge">{{ . }}</span>{{ end }}
+        </div>
+        <p>{{ .desc }}</p>
+        <div class="ec-project-card__meta">
+          <span class="ec-project-card__host">{{ .url | replaceRE "^https?://" "" | replaceRE "/.*$" "" }}</span>
+        </div>
+      </a>
+      {{ end }}
+    </div>
+  </div>
+
+  <div class="ec-projects__section">
+    <div class="ec-section-heading">
+      <div>
+        <p>On the roadmap</p>
+        <h2>计划中</h2>
+      </div>
+    </div>
+    <ul class="ec-projects__planned">
+      {{ range $projects.planned }}
+      <li>
+        <strong>{{ .name }}</strong>
+        <span>{{ .desc }}</span>
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+</section>
+{{ end }}

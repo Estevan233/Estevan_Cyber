@@ -1327,3 +1327,219 @@ html.ec-curtain-scrolled body:has(.ec-home) .header .theme-toggle {
     animation-iteration-count: 1 !important;
   }
 }
+
+/* Projects page */
+
+.ec-projects {
+  width: min(980px, 100%);
+  margin: 0 auto;
+  padding: 36px 0 64px;
+}
+
+.ec-projects__header h1 {
+  margin: 10px 0 0;
+  color: var(--ec-text);
+  font-size: 2.1rem;
+  letter-spacing: -0.01em;
+}
+
+.ec-projects__eyebrow {
+  color: var(--ec-accent-strong);
+  font-size: 0.8rem;
+  font-weight: 760;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ec-projects__intro {
+  margin: 12px 0 0;
+  max-width: 46rem;
+  color: var(--ec-muted);
+  line-height: 1.75;
+}
+
+.ec-projects__section {
+  margin-top: 54px;
+}
+
+.ec-projects__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(272px, 1fr));
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.ec-projects__grid--list {
+  grid-template-columns: 1fr;
+}
+
+.ec-project-card {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 18px 18px 16px;
+  border: 1px solid var(--ec-border);
+  border-radius: 12px;
+  background: var(--ec-surface);
+  color: var(--ec-text);
+  text-decoration: none;
+  box-shadow: 0 1px 2px rgba(31, 48, 44, 0.04);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+.ec-project-card:hover {
+  border-color: color-mix(in srgb, var(--ec-accent) 45%, var(--ec-border));
+  box-shadow: var(--ec-shadow);
+  transform: translateY(-2px);
+}
+
+.ec-project-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.ec-project-card__head strong {
+  color: var(--ec-text);
+  font-size: 1.02rem;
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+.ec-project-card:hover .ec-project-card__head strong {
+  color: var(--ec-accent-strong);
+}
+
+.ec-project-card__site,
+.ec-project-card__badge {
+  flex: none;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 760;
+}
+
+.ec-project-card__site {
+  color: var(--ec-accent-strong);
+  background: var(--ec-accent-soft);
+}
+
+.ec-project-card__badge {
+  color: var(--ec-amber);
+  background: var(--ec-amber-soft);
+}
+
+.ec-project-card > p {
+  margin: 0;
+  color: var(--ec-muted);
+  font-size: 0.88rem;
+  line-height: 1.68;
+}
+
+.ec-project-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 14px;
+  margin-top: auto;
+  padding-top: 6px;
+  color: var(--ec-muted);
+  font-size: 0.78rem;
+}
+
+.ec-project-card__lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ec-project-card__lang i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--ec-lang, var(--ec-accent));
+}
+
+.ec-project-card__pushed {
+  margin-left: auto;
+}
+
+.ec-project-card__host {
+  color: var(--ec-accent-strong);
+}
+
+.ec-project-card__topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ec-project-card__topics span {
+  padding: 3px 8px;
+  border-radius: 6px;
+  color: var(--ec-accent-strong);
+  background: var(--ec-accent-soft);
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.ec-projects__planned {
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--ec-border);
+}
+
+.ec-projects__planned li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 14px;
+  padding: 15px 2px;
+  border-bottom: 1px solid var(--ec-border);
+}
+
+.ec-projects__planned strong {
+  color: var(--ec-text);
+  font-size: 0.96rem;
+}
+
+.ec-projects__planned span {
+  color: var(--ec-muted);
+  font-size: 0.86rem;
+  line-height: 1.65;
+}
+
+/* Homepage polish: article rows & facility cells */
+
+.ec-article-row {
+  transition: background-color 0.18s ease;
+}
+
+.ec-article-row:hover {
+  background: color-mix(in srgb, var(--ec-surface-soft) 55%, transparent);
+}
+
+.ec-article-row__cover {
+  overflow: hidden;
+  transition: transform 0.22s ease;
+}
+
+.ec-article-row:hover .ec-article-row__cover {
+  transform: scale(1.04);
+}
+
+.ec-facilities__list a {
+  transition: background-color 0.18s ease;
+}
+
+@media (max-width: 640px) {
+  .ec-projects__header h1 {
+    font-size: 1.7rem;
+  }
+
+  .ec-projects__grid {
+    grid-template-columns: 1fr;
+  }
+}

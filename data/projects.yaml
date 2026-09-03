@@ -1,0 +1,41 @@
+intro: 这里整理正在维护或已经完成的个人项目，并自动同步 GitHub 公开仓库。重点不是摆一堆名字，而是记录它们如何被设计、部署、验证和继续迭代。
+
+done:
+  - name: Hugo + Cloudflare 个人博客
+    desc: 当前站点：文章、搜索、项目页与站内问答，GitHub Actions 自动构建、校验与回滚部署。
+    url: https://github.com/Estevan233/Estevan_Cyber
+  - name: Knowledge Agent 问答系统
+    desc: 基于博客 Markdown 的站内知识问答，FastAPI + LLM 本地检索，Tavily 联网补充。
+    url: /ask/
+  - name: 饭卜卜 Eat-What 小程序
+    desc: 微信小程序餐食推荐：uni-app + FastAPI + CloudBase 云托管，纯规则引擎加端侧 AI 降级增强。
+    url: https://github.com/Estevan233/Eat-What
+  - name: VPS 基础设施实验
+    desc: Nginx、Docker、Cloudflare、HTTPS、订阅文件与多服务部署的完整实践。
+  - name: sing-box 节点与监控面板
+    desc: VLESS Reality、Hysteria2、Beszel Hub/Agent 与 Docker 备用服务。
+  - name: Hermes Agent 微信 AI Agent
+    desc: 微信侧 Agent 接入与部署记录。
+
+infra:
+  - name: VPS 监控面板
+    desc: Beszel Hub：所辖 VPS 的负载、网络与容器状态，自用需登录。
+    url: https://vps.estevancyber.net/
+    badge: 自用
+  - name: 工具站
+    desc: 音乐解锁等自托管小工具集合。
+    url: https://tools.estevancyber.net/
+  - name: 问答 API
+    desc: Knowledge Agent 的 FastAPI 服务。
+    url: https://api.estevancyber.net/
+  - name: 博客源码
+    desc: Hugo 站点仓库，push 到 main 即自动构建部署。
+    url: https://github.com/Estevan233/Estevan_Cyber
+
+planned:
+  - name: Lab 页面
+    desc: 把 VPS、节点、Agent、工具服务整理成一张个人云实验室地图。
+  - name: 个人 API 服务
+    desc: 把常用脚本和工具接口化，统一部署和监控。
+  - name: Knowledge Agent 迭代
+    desc: 向量检索、来源卡片、重建索引按钮和更完整的日志面板。
