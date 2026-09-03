@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">推荐引擎流水线</title>
+  <desc id="desc">推荐请求经过硬筛、九项规则评分、重排扩展缝、新颖度与有界探索、逐槽组餐，最后以 request_id 幂等落库。</desc>
+  <rect width="1200" height="720" fill="#f6f8f7"/>
+  <text x="70" y="78" fill="#183b36" font-family="Arial, sans-serif" font-size="32" font-weight="700">推荐引擎流水线（rules_v6）</text>
+  <text x="70" y="112" fill="#5f716d" font-family="Arial, sans-serif" font-size="18">纯规则评分 + 可复现轮换，LLM 只在旁路，不在主链路</text>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <rect x="70" y="165" width="200" height="86" rx="8" fill="#183b36"/>
+    <text x="170" y="200" fill="#ffffff" font-size="19" font-weight="700">推荐请求</text>
+    <text x="170" y="227" fill="#d9e9e5" font-size="14">档案 + 心情 + 场景 + 意图</text>
+    <path d="M270 208 H330" stroke="#2f8f7f" stroke-width="4" marker-end="url(#arrow)"/>
+    <rect x="330" y="165" width="200" height="86" rx="8" fill="#ffffff" stroke="#a9bbb6" stroke-width="2"/>
+    <text x="430" y="200" fill="#183b36" font-size="19" font-weight="700">硬筛选</text>
+    <text x="430" y="227" fill="#5f716d" font-size="14">忌口 · 体质禁忌 · 意图排除</text>
+    <path d="M530 208 H590" stroke="#2f8f7f" stroke-width="4" marker-end="url(#arrow)"/>
+    <rect x="590" y="165" width="210" height="86" rx="8" fill="#e6f3ef" stroke="#2f8f7f" stroke-width="2"/>
+    <text x="695" y="196" fill="#183b36" font-size="19" font-weight="700">规则评分 85 分</text>
+    <text x="695" y="222" fill="#5f716d" font-size="14">节气 16 · 体质 14 · 可行性 14</text>
+    <text x="695" y="243" fill="#5f716d" font-size="14">偏好 15 · 营养 12 · 天气 4 …</text>
+    <path d="M800 208 H860" stroke="#2f8f7f" stroke-width="4" marker-end="url(#arrow)"/>
+    <rect x="860" y="165" width="270" height="86" rx="8" fill="#fff5df" stroke="#d18b2c" stroke-width="2"/>
+    <text x="995" y="196" fill="#6c4819" font-size="18" font-weight="700">重排扩展缝（±10 分）</text>
+    <text x="995" y="222" fill="#775f40" font-size="14">CandidateReranker 协议</text>
+    <text x="995" y="243" fill="#775f40" font-size="14">默认恒等 · 异常回退纯规则</text>
+  </g>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <rect x="70" y="330" width="250" height="100" rx="8" fill="#ffffff" stroke="#a9bbb6" stroke-width="2"/>
+    <text x="195" y="368" fill="#183b36" font-size="19" font-weight="700">新颖度惩罚</text>
+    <text x="195" y="394" fill="#5f716d" font-size="14">当天已见 -45</text>
+    <text x="195" y="415" fill="#5f716d" font-size="14">1-13 天线性衰减</text>
+    <rect x="360" y="330" width="250" height="100" rx="8" fill="#ffffff" stroke="#a9bbb6" stroke-width="2"/>
+    <text x="485" y="368" fill="#183b36" font-size="19" font-weight="700">有界探索</text>
+    <text x="485" y="394" fill="#5f716d" font-size="14">质量带 5 分内 +8</text>
+    <text x="485" y="415" fill="#5f716d" font-size="14">SHA-256 稳定随机种子</text>
+    <rect x="650" y="330" width="240" height="100" rx="8" fill="#e6f3ef" stroke="#2f8f7f" stroke-width="2"/>
+    <text x="770" y="362" fill="#183b36" font-size="19" font-weight="700">逐槽组餐</text>
+    <text x="770" y="388" fill="#5f716d" font-size="14">主菜 + 蔬菜 + 主食</text>
+    <text x="770" y="409" fill="#5f716d" font-size="14">新类别 / 新做法 +3.5</text>
+    <rect x="930" y="330" width="200" height="100" rx="8" fill="#ffffff" stroke="#a9bbb6" stroke-width="2"/>
+    <text x="1030" y="362" fill="#183b36" font-size="19" font-weight="700">替换项生成</text>
+    <text x="1030" y="388" fill="#5f716d" font-size="14">能量 ±25% / 35%</text>
+    <text x="1030" y="409" fill="#5f716d" font-size="14">同槽位可换菜</text>
+    <path d="M195 275 V330" stroke="#2f8f7f" stroke-width="4" marker-end="url(#arrow)"/>
+    <path d="M320 380 H360" stroke="#2f8f7f" stroke-width="4" marker-end="url(#arrow)"/>
+    <path d="M610 380 H650" stroke="#2f8f7f" stroke-width="4" marker-end="url(#arrow)"/>
+    <path d="M890 380 H930" stroke="#2f8f7f" stroke-width="4" marker-end="url(#arrow)"/>
+  </g>
+  <g font-family="Arial, sans-serif">
+    <text x="70" y="500" fill="#183b36" font-size="23" font-weight="700">可追溯与幂等</text>
+    <rect x="70" y="528" width="340" height="140" rx="8" fill="#ffffff" stroke="#c9d6d2"/>
+    <text x="92" y="564" fill="#183b36" font-size="19" font-weight="700">recommendation_events</text>
+    <text x="92" y="595" fill="#5f716d" font-size="15">每次曝光一行 · request_id 唯一</text>
+    <text x="92" y="620" fill="#5f716d" font-size="15">engine 版本 · 决策上下文快照</text>
+    <text x="92" y="645" fill="#5f716d" font-size="15">重复请求不重复计数</text>
+    <rect x="450" y="528" width="340" height="140" rx="8" fill="#ffffff" stroke="#c9d6d2"/>
+    <text x="472" y="564" fill="#183b36" font-size="19" font-weight="700">daily_logs 投影</text>
+    <text x="472" y="595" fill="#5f716d" font-size="15">早 / 中 / 晚三餐独立</text>
+    <text x="472" y="620" fill="#5f716d" font-size="15">推荐快照 + 实际选择</text>
+    <text x="472" y="645" fill="#5f716d" font-size="15">历史可回放当时的餐单</text>
+    <rect x="830" y="528" width="300" height="140" rx="8" fill="#fff5df" stroke="#d18b2c" stroke-width="2"/>
+    <text x="852" y="564" fill="#6c4819" font-size="19" font-weight="700">偏好快照</text>
+    <text x="852" y="595" fill="#775f40" font-size="15">30 天收藏 ×2.0 / 选择 ×1.0</text>
+    <text x="852" y="620" fill="#775f40" font-size="15">五轴有界软偏好</text>
+    <text x="852" y="645" fill="#775f40" font-size="15">冷启动回 7.5 中性基准</text>
+  </g>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2f8f7f"/></marker>
+  </defs>
+</svg>

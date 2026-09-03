@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">饭卜卜 Eat-What 总体架构</title>
+  <desc id="desc">微信小程序通过云托管调用 FastAPI 后端，后端经 HTTPS REST 访问 CloudBase MySQL，AI 能力分布在小程序端与服务端。</desc>
+  <rect width="1200" height="720" fill="#f6f8f7"/>
+  <text x="70" y="78" fill="#183b36" font-family="Arial, sans-serif" font-size="32" font-weight="700">饭卜卜 Eat-What 总体架构</text>
+  <text x="70" y="112" fill="#5f716d" font-family="Arial, sans-serif" font-size="18">小程序直连云托管私有链路，生产环境不开公网 MySQL 端口</text>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <rect x="70" y="170" width="250" height="120" rx="8" fill="#183b36"/>
+    <text x="195" y="210" fill="#ffffff" font-size="21" font-weight="700">微信小程序</text>
+    <text x="195" y="238" fill="#d9e9e5" font-size="15">uni-app + Vue 3 + TS</text>
+    <text x="195" y="263" fill="#d9e9e5" font-size="15">Pinia · vitest</text>
+    <path d="M320 230 H410" stroke="#2f8f7f" stroke-width="4" marker-end="url(#arrow)"/>
+    <text x="365" y="212" fill="#2f8f7f" font-size="14" font-weight="700">callContainer</text>
+    <rect x="410" y="170" width="250" height="120" rx="8" fill="#e6f3ef" stroke="#2f8f7f" stroke-width="2"/>
+    <text x="535" y="210" fill="#183b36" font-size="21" font-weight="700">CloudBase 云托管</text>
+    <text x="535" y="238" fill="#5f716d" font-size="15">FastAPI + SQLModel</text>
+    <text x="535" y="263" fill="#5f716d" font-size="15">Alembic · Docker 镜像</text>
+    <path d="M660 230 H750" stroke="#2f8f7f" stroke-width="4" marker-end="url(#arrow)"/>
+    <text x="705" y="212" fill="#2f8f7f" font-size="14" font-weight="700">HTTPS REST</text>
+    <rect x="750" y="170" width="180" height="120" rx="8" fill="#ffffff" stroke="#a9bbb6" stroke-width="2"/>
+    <text x="840" y="210" fill="#183b36" font-size="21" font-weight="700">CloudBase</text>
+    <text x="840" y="238" fill="#5f716d" font-size="15">MySQL</text>
+    <text x="840" y="263" fill="#5f716d" font-size="15">9 张业务表</text>
+    <rect x="970" y="170" width="160" height="120" rx="8" fill="#ffffff" stroke="#c9d6d2"/>
+    <text x="1050" y="210" fill="#183b36" font-size="19" font-weight="700">和风天气</text>
+    <text x="1050" y="240" fill="#5f716d" font-size="15">服务端注入</text>
+    <text x="1050" y="263" fill="#5f716d" font-size="15">3s 超时软依赖</text>
+    <path d="M660 205 H745 V120 H1050 V170" fill="none" stroke="#a9bbb6" stroke-width="3" marker-end="url(#arrowGrey)"/>
+  </g>
+  <g font-family="Arial, sans-serif">
+    <text x="70" y="365" fill="#183b36" font-size="23" font-weight="700">AI 能力分布：端侧为主，服务端仅一处</text>
+    <rect x="70" y="395" width="340" height="150" rx="8" fill="#fff5df" stroke="#d18b2c" stroke-width="2"/>
+    <text x="92" y="431" fill="#6c4819" font-size="19" font-weight="700">小程序端 · wx.cloud.extend.AI</text>
+    <text x="92" y="462" fill="#775f40" font-size="15">用餐意图解析（冰箱里有什么？）</text>
+    <text x="92" y="487" fill="#775f40" font-size="15">一句话自记（AI 解析餐次与菜品）</text>
+    <text x="92" y="512" fill="#775f40" font-size="15">推荐理由生成 · 城市特色菜缓存</text>
+    <rect x="450" y="395" width="300" height="150" rx="8" fill="#ffffff" stroke="#a9bbb6" stroke-width="2"/>
+    <text x="600" y="431" fill="#183b36" font-size="19" font-weight="700" text-anchor="middle">混元大模型</text>
+    <text x="600" y="462" fill="#5f716d" font-size="15" text-anchor="middle">端侧 hunyuan-v3</text>
+    <text x="600" y="487" fill="#5f716d" font-size="15" text-anchor="middle">服务端 hunyuan-turbos</text>
+    <text x="600" y="512" fill="#5f716d" font-size="15" text-anchor="middle">失败一律静默降级</text>
+    <rect x="790" y="395" width="340" height="150" rx="8" fill="#ffffff" stroke="#a9bbb6" stroke-width="2"/>
+    <text x="812" y="431" fill="#183b36" font-size="19" font-weight="700">服务端 · 仅城市特色菜</text>
+    <text x="812" y="462" fill="#5f716d" font-size="15">24h 缓存 + 防幻觉校验</text>
+    <text x="812" y="487" fill="#5f716d" font-size="15">人工目录兜底</text>
+    <text x="812" y="512" fill="#5f716d" font-size="15">核心推荐不依赖 LLM</text>
+    <text x="70" y="610" fill="#183b36" font-size="23" font-weight="700">认证与调用约定</text>
+    <rect x="70" y="632" width="500" height="60" rx="8" fill="#e6f3ef" stroke="#2f8f7f" stroke-width="2"/>
+    <text x="92" y="668" fill="#183b36" font-size="16">私有链路可信头 X-WX-* → 后端签发 JWT（7 天）</text>
+    <rect x="630" y="632" width="500" height="60" rx="8" fill="#ffffff" stroke="#a9bbb6" stroke-width="2"/>
+    <text x="652" y="668" fill="#5f716d" font-size="16">camelCase ↔ snake_case 自动转换 · 401 统一跳登录</text>
+  </g>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2f8f7f"/></marker>
+    <marker id="arrowGrey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a9bbb6"/></marker>
+  </defs>
+</svg>
