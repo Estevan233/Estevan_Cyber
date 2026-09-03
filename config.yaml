@@ -69,16 +69,46 @@ menu:
     - identifier: tools
       name: 工具
       weight: 40
+    - identifier: tools-ask
+      name: 问答
+      url: /ask/
+      parent: tools
+      weight: 1
+      params:
+        desc: 站内知识问答，快速找到答案
+        icon: ask
+    - identifier: tools-search
+      name: 站内搜索
+      url: /search/
+      parent: tools
+      weight: 2
+      params:
+        desc: 全文检索站内文章与笔记
+        icon: search
     - identifier: tools-site
       name: 工具站
       url: https://tools.estevancyber.net/
       parent: tools
-      weight: 1
+      weight: 10
+      params:
+        desc: 音乐解锁等自托管小工具集合
+        icon: tools
     - identifier: tools-vps
       name: VPS 面板
       url: https://vps.estevancyber.net/
       parent: tools
-      weight: 2
+      weight: 11
+      params:
+        desc: 服务器负载与容器状态监控
+        icon: vps
+    - identifier: tools-api
+      name: API 文档
+      url: https://api.estevancyber.net/docs
+      parent: tools
+      weight: 12
+      params:
+        desc: 问答服务的交互式接口文档
+        icon: api
     - identifier: about
       name: 关于
       url: /about/

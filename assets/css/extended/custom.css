@@ -1544,7 +1544,7 @@ html.ec-curtain-scrolled body:has(.ec-home) .header .theme-toggle {
   }
 }
 
-/* Header tools dropdown */
+/* Header tools dropdown: grouped card panel, click-to-open via details. */
 
 .menu .menu-dropdown {
   position: relative;
@@ -1570,8 +1570,7 @@ html.ec-curtain-scrolled body:has(.ec-home) .header .theme-toggle {
 }
 
 .menu .menu-dropdown__summary:hover,
-.menu .menu-dropdown details[open] .menu-dropdown__summary,
-.menu .menu-dropdown:hover .menu-dropdown__summary {
+.menu .menu-dropdown details[open] .menu-dropdown__summary {
   color: var(--ec-text);
 }
 
@@ -1583,47 +1582,164 @@ html.ec-curtain-scrolled body:has(.ec-home) .header .theme-toggle {
   transform: rotate(180deg);
 }
 
-.menu-dropdown__list {
+.menu-dropdown__panel {
   position: absolute;
   top: calc(100% + 10px);
   right: 0;
   z-index: 60;
   display: none;
-  min-width: 172px;
-  margin: 0;
-  padding: 6px;
-  list-style: none;
+  width: max-content;
+  min-width: 300px;
+  max-width: min(340px, calc(100vw - 32px));
+  padding: 10px;
   border: 1px solid var(--ec-border);
-  border-radius: 10px;
+  border-radius: 12px;
   background: var(--ec-surface);
   box-shadow: var(--ec-shadow);
 }
 
-.menu .menu-dropdown:hover .menu-dropdown__list,
-.menu .menu-dropdown details[open] .menu-dropdown__list {
+.menu .menu-dropdown details[open] .menu-dropdown__panel {
   display: block;
+  animation: menu-dropdown-in 150ms ease;
 }
 
-.menu .menu-dropdown__list li {
+@keyframes menu-dropdown-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.menu-dropdown__group-title {
+  margin: 2px 8px 6px;
+  color: var(--ec-muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.menu-dropdown__list {
   margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.menu .menu-dropdown__list a {
+.menu-dropdown__group {
+  display: grid;
+  gap: 2px;
+}
+
+.menu-dropdown__group li {
+  margin: 0;
+  min-width: 0;
+}
+
+.menu-dropdown__sep {
+  margin: 8px 4px;
+  border: 0;
+  border-top: 1px solid var(--ec-border);
+}
+
+.menu .menu-dropdown__item {
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 9px 11px;
-  border-radius: 7px;
+  gap: 10px;
+  padding: 8px;
+  border-radius: 8px;
   color: var(--ec-text);
   font-weight: 600;
-  white-space: nowrap;
+  text-decoration: none;
+  transition: background-color 150ms ease;
 }
 
-.menu .menu-dropdown__list a:hover {
+.menu .menu-dropdown__item:hover {
   color: var(--ec-accent-strong);
   background: var(--ec-accent-soft);
 }
 
-.menu .menu-dropdown__list a svg {
+.menu .menu-dropdown__item:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--ec-accent) 58%, transparent);
+  outline-offset: 2px;
+}
+
+.menu-dropdown__icon {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  color: #ffffff;
+  background: #147d72;
+}
+
+[data-theme="dark"] .menu-dropdown__icon {
+  border: 1px solid rgba(109, 214, 200, 0.35);
+  color: #6dd6c8;
+  background: #1d2926;
+}
+
+.menu-dropdown__glyph {
+  width: 16px;
+  height: 16px;
+}
+
+.menu-dropdown__text {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+}
+
+.menu-dropdown__name {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.menu-dropdown__desc {
   color: var(--ec-muted);
+  font-size: 0.76rem;
+  font-weight: 500;
+  line-height: 1.5;
+  white-space: normal;
+}
+
+.menu .menu-dropdown__item:hover .menu-dropdown__desc {
+  color: var(--ec-accent-strong);
+}
+
+.menu-dropdown__external {
+  flex: none;
+  color: var(--ec-muted);
+}
+
+.menu .menu-dropdown__item:hover .menu-dropdown__external {
+  color: currentcolor;
+}
+
+@media (max-width: 720px) {
+  .menu .menu-dropdown {
+    position: static;
+  }
+
+  /* Fixed escapes PaperMod's overflow-x:auto menu scroller, which would
+     otherwise squeeze an absolutely positioned panel to the trigger width.
+     top:auto keeps the panel next to the trigger wherever it was opened. */
+  .menu-dropdown__panel {
+    position: fixed;
+    top: auto;
+    right: 12px;
+    left: 12px;
+    width: auto;
+    min-width: 0;
+    max-width: none;
+    margin-top: 10px;
+  }
 }

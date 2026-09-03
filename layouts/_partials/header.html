@@ -90,7 +90,7 @@
             {{- if .HasChildren }}
             <li class="menu-dropdown">
                 <details class="menu-dropdown__details">
-                    <summary class="menu-dropdown__summary" title="{{ .Title | default .Name }}">
+                    <summary class="menu-dropdown__summary" title="{{ .Title | default .Name }}" aria-haspopup="true" aria-expanded="false">
                         <span>{{- .Name -}}</span>
                         <svg class="menu-dropdown__caret" fill="none" stroke="currentColor" stroke-linecap="round"
                             stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12"
@@ -98,23 +98,82 @@
                             <path d="m6 9 6 6 6-6"></path>
                         </svg>
                     </summary>
-                    <ul class="menu-dropdown__list">
-                        {{- range .Children }}
-                        <li>
-                            <a href="{{ .URL | absLangURL }}" title="{{ .Title | default .Name }}"{{ if (findRE "://" .URL) }} target="_blank" rel="noopener"{{ end }}>
-                                <span>{{- .Name -}}</span>
-                                {{- if (findRE "://" .URL) }}&nbsp;
-                                <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
-                                    stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="11" width="11">
-                                    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
-                                    <path d="M15 3h6v6"></path>
-                                    <path d="M10 14L21 3"></path>
-                                </svg>
-                                {{- end }}
-                            </a>
-                        </li>
-                        {{- end }}
-                    </ul>
+                    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+                        <defs>
+                            <symbol id="ec-icon-ask" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.5L3 21l2-5.6A8.5 8.5 0 1 1 21 11.5z"></path>
+                                <path d="M9.6 11.2a2.4 2.4 0 1 1 3.3 2.2c-.7.3-.9.8-.9 1.6"></path>
+                                <circle cx="12" cy="17" r="0.6" fill="currentColor" stroke="none"></circle>
+                            </symbol>
+                            <symbol id="ec-icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="7"></circle>
+                                <path d="m20 20-3.8-3.8"></path>
+                            </symbol>
+                            <symbol id="ec-icon-tools" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14.5 6.5a4 4 0 0 0-5.2 5.2L4 17l3 3 5.3-5.3a4 4 0 0 0 5.2-5.2L14 13l-3-3 3.5-3.5z"></path>
+                            </symbol>
+                            <symbol id="ec-icon-vps" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="4" width="18" height="7" rx="2"></rect>
+                                <rect x="3" y="13" width="18" height="7" rx="2"></rect>
+                                <circle cx="7" cy="7.5" r="0.6" fill="currentColor" stroke="none"></circle>
+                                <circle cx="7" cy="16.5" r="0.6" fill="currentColor" stroke="none"></circle>
+                            </symbol>
+                            <symbol id="ec-icon-api" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5z"></path>
+                                <path d="M14 3v5h5"></path>
+                                <path d="m10 13-1.5 1.5L10 16"></path>
+                                <path d="m14 13 1.5 1.5L14 16"></path>
+                            </symbol>
+                        </defs>
+                    </svg>
+                    <div class="menu-dropdown__panel" role="menu" aria-label="{{ .Name }}">
+                        <p class="menu-dropdown__group-title" id="tools-group-internal">站内工具</p>
+                        <ul class="menu-dropdown__list menu-dropdown__group" aria-labelledby="tools-group-internal">
+                            {{- range .Children }}
+                            {{- if not (findRE "://" .URL) }}
+                            {{- $icon := .Params.icon | default "tools" }}
+                            <li role="none">
+                                <a role="menuitem" class="menu-dropdown__item" href="{{ .URL | absLangURL }}" title="{{ .Title | default .Name }}">
+                                    <span class="menu-dropdown__icon menu-dropdown__icon--{{ $icon }}" aria-hidden="true">
+                                        <svg class="menu-dropdown__glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#ec-icon-{{ $icon }}"></use></svg>
+                                    </span>
+                                    <span class="menu-dropdown__text">
+                                        <span class="menu-dropdown__name">{{- .Name -}}</span>
+                                        {{- with .Params.desc }}<span class="menu-dropdown__desc">{{ . }}</span>{{ end }}
+                                    </span>
+                                </a>
+                            </li>
+                            {{- end }}
+                            {{- end }}
+                        </ul>
+                        <hr class="menu-dropdown__sep" />
+                        <p class="menu-dropdown__group-title" id="tools-group-external">外部服务</p>
+                        <ul class="menu-dropdown__list menu-dropdown__group" aria-labelledby="tools-group-external">
+                            {{- range .Children }}
+                            {{- if (findRE "://" .URL) }}
+                            {{- $icon := .Params.icon | default "tools" }}
+                            <li role="none">
+                                <a role="menuitem" class="menu-dropdown__item" href="{{ .URL | absLangURL }}" title="{{ .Title | default .Name }}" target="_blank" rel="noopener">
+                                    <span class="menu-dropdown__icon menu-dropdown__icon--{{ $icon }}" aria-hidden="true">
+                                        <svg class="menu-dropdown__glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#ec-icon-{{ $icon }}"></use></svg>
+                                    </span>
+                                    <span class="menu-dropdown__text">
+                                        <span class="menu-dropdown__name">{{- .Name -}}
+                                            <svg class="menu-dropdown__external" fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                                                stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="11" width="11" aria-hidden="true">
+                                                <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                                                <path d="M15 3h6v6"></path>
+                                                <path d="M10 14L21 3"></path>
+                                            </svg>
+                                        </span>
+                                        {{- with .Params.desc }}<span class="menu-dropdown__desc">{{ . }}</span>{{ end }}
+                                    </span>
+                                </a>
+                            </li>
+                            {{- end }}
+                            {{- end }}
+                        </ul>
+                    </div>
                 </details>
             </li>
             {{- else }}
@@ -145,14 +204,31 @@
     </nav>
 </header>
 <script>
-    document.addEventListener("click", function (event) {
-        document.querySelectorAll(".menu-dropdown details[open]").forEach(function (details) {
-            if (!details.contains(event.target)) { details.removeAttribute("open"); }
-        });
-    });
-    document.addEventListener("keydown", function (event) {
-        if (event.key === "Escape") {
-            document.querySelectorAll(".menu-dropdown details[open]").forEach(function (details) { details.removeAttribute("open"); });
+    (function () {
+        function sync(details) {
+            var summary = details.querySelector(":scope > summary.menu-dropdown__summary");
+            if (summary) { summary.setAttribute("aria-expanded", details.hasAttribute("open") ? "true" : "false"); }
         }
-    });
+        document.querySelectorAll(".menu-dropdown details.menu-dropdown__details").forEach(function (details) {
+            sync(details);
+            details.addEventListener("toggle", function () {
+                if (details.open) {
+                    document.querySelectorAll(".menu-dropdown details.menu-dropdown__details[open]").forEach(function (other) {
+                        if (other !== details) { other.removeAttribute("open"); sync(other); }
+                    });
+                }
+                sync(details);
+            });
+        });
+        document.addEventListener("click", function (event) {
+            document.querySelectorAll(".menu-dropdown details.menu-dropdown__details[open]").forEach(function (details) {
+                if (!details.contains(event.target)) { details.removeAttribute("open"); sync(details); }
+            });
+        });
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape") {
+                document.querySelectorAll(".menu-dropdown details.menu-dropdown__details[open]").forEach(function (details) { details.removeAttribute("open"); sync(details); });
+            }
+        });
+    })();
 </script>
