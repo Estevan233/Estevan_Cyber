@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <style>
+    .ec-bg { fill: #147d72; }
+    .ec-fg { fill: #ffffff; }
+    .ec-cursor { fill: #f0b76a; }
+    @media (prefers-color-scheme: dark) {
+      .ec-bg { fill: #1d2926; }
+      .ec-fg { fill: #6dd6c8; }
+      .ec-cursor { fill: #efad67; }
+    }
+  </style>
+  <rect class="ec-bg" width="64" height="64" rx="14"/>
+  <rect class="ec-fg" x="20" y="16" width="9" height="32" rx="2.5"/>
+  <rect class="ec-fg" x="20" y="16" width="25" height="9" rx="2.5"/>
+  <rect class="ec-fg" x="20" y="27.5" width="20" height="9" rx="2.5"/>
+  <rect class="ec-fg" x="20" y="39" width="25" height="9" rx="2.5"/>
+  <rect class="ec-cursor" x="49" y="41" width="8" height="8" rx="2"/>
+</svg>

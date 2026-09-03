@@ -19,6 +19,14 @@ params:
   ShowCodeCopyButtons: true
   ShowToc: true
 
+  assets:
+    favicon: /favicon.svg
+    favicon16x16: /favicon-16x16.png
+    favicon32x32: /favicon-32x32.png
+    apple_touch_icon: /apple-touch-icon.png
+    theme_color: "#147d72"
+    msapplication_TileColor: "#147d72"
+
   profileMode:
     enabled: false
     Title: "Estevan Cyber"
@@ -60,12 +68,17 @@ menu:
       weight: 30
     - identifier: tools
       name: 工具
-      url: https://tools.estevancyber.net/
       weight: 40
-    - identifier: vps
-      name: VPS
+    - identifier: tools-site
+      name: 工具站
+      url: https://tools.estevancyber.net/
+      parent: tools
+      weight: 1
+    - identifier: tools-vps
+      name: VPS 面板
       url: https://vps.estevancyber.net/
-      weight: 45
+      parent: tools
+      weight: 2
     - identifier: about
       name: 关于
       url: /about/

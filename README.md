@@ -12,6 +12,10 @@ Estevan 的个人网站源码。它以 Hugo 生成静态内容，用幕布式首
 
 - 主站：[estevancyber.net](https://estevancyber.net/)
 - 博客：[blog.estevancyber.net](https://blog.estevancyber.net/)
+- 项目页：[blog.estevancyber.net/projects](https://blog.estevancyber.net/projects/)（GitHub 公开仓库卡片自动同步）
+- 工具站：[tools.estevancyber.net](https://tools.estevancyber.net/)
+- VPS 面板：[vps.estevancyber.net](https://vps.estevancyber.net/)（Beszel，自用需登录）
+- 问答 API 文档：[api.estevancyber.net/docs](https://api.estevancyber.net/docs)
 - 本次首页改造教程：[从毛坯首页到幕布式个人网站](https://blog.estevancyber.net/posts/curtain-homepage-design-and-deployment/)
 
 ## 功能
@@ -19,6 +23,9 @@ Estevan 的个人网站源码。它以 Hugo 生成静态内容，用幕布式首
 - 全屏幕布式 Hero，每日稳定轮换本地精选图片。
 - 今天、本周、本月、今年四类本地时间进度。
 - Hugo 标签入口、最新文章、项目、工具和知识库问答。
+- 「工具」导航下拉聚合工具站与 VPS 面板，后续工具可直接加进菜单。
+- 项目页卡片化：GitHub 公开仓库构建时同步（fork 过滤 + 置顶排序），基础设施入口集中展示。
+- 品牌 favicon（SVG 自适应明暗模式 + PNG 回退）。
 - 3 至 5 首可手动维护的自托管歌单。
 - 明暗主题、移动端布局和 `prefers-reduced-motion` 支持。
 - Node.js 算法测试、页面契约测试和内容契约测试。
@@ -62,7 +69,7 @@ data/                    Hero、关注项和歌单等手动维护数据
 layouts/                 首页和问答页的自定义 Hugo 模板
 static/                  不经 Hugo 处理的静态文件与音频
 tests/                   算法、页面、内容和部署契约测试
-scripts/                 远端生产部署脚本
+scripts/                 远端生产部署与 GitHub 仓库数据同步脚本
 .github/workflows/       构建与发布工作流
 docs/superpowers/        设计规格和实施计划
 agent-api/               独立知识库问答服务
@@ -119,6 +126,19 @@ cover:
 - `data/hero-images.yaml`：首屏图片池及来源信息。
 - `data/playlist.yaml`：歌单曲目、作者、封面和音频路径。
 - `data/focus.yaml`：首页“最近在做”内容。
+- `data/projects.yaml`：项目页的手维护分区（已完成、基础设施入口、计划中）。
+- `data/github_repos.json`：项目页 GitHub 仓库卡片数据（构建输入，提交进仓库）。
+- `config.yaml` 菜单：`parent: tools` 的条目会自动进入「工具」下拉。
+
+### 刷新 GitHub 仓库数据
+
+项目页卡片来自构建时提交的快照，保证构建可复现、离线可构建：
+
+```bash
+node scripts/fetch-github-repos.js   # 拉取并重写 data/github_repos.json
+```
+
+筛选规则在脚本内：fork 与无描述仓库自动隐藏，`PINNED` 列表控制置顶顺序，改动后跑一次脚本并提交即可。
 
 本地预览草稿使用 `hugo server -D`；准备发布时把 `draft` 改为 `false`。新增媒体前要确认授权，并同步更新 `THIRD_PARTY_NOTICES.md`。
 

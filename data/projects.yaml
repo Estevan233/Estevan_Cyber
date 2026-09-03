@@ -26,8 +26,8 @@ infra:
     desc: 音乐解锁等自托管小工具集合。
     url: https://tools.estevancyber.net/
   - name: 问答 API
-    desc: Knowledge Agent 的 FastAPI 服务。
-    url: https://api.estevancyber.net/
+    desc: Knowledge Agent 的 FastAPI 服务，含交互式接口文档。
+    url: https://api.estevancyber.net/docs
   - name: 博客源码
     desc: Hugo 站点仓库，push 到 main 即自动构建部署。
     url: https://github.com/Estevan233/Estevan_Cyber
