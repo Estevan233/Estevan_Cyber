@@ -4,9 +4,16 @@ const fs = require("node:fs");
 const path = require("node:path");
 
 const root = path.resolve(__dirname, "..");
-const read = (file) => fs.readFileSync(path.join(root, file), "utf8");
+const read = (file) => fs.readFileSync(path.join(root, file), "utf8").replace(/\r\n/g, "\n");
 
 const children = [
+  {
+    identifier: "tools-mood",
+    name: "情绪日记",
+    url: "/mood/",
+    icon: "ask",
+    desc: "记录情绪，回顾日常，照顾自己",
+  },
   {
     identifier: "tools-ask",
     name: "问答",

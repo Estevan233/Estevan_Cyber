@@ -14,11 +14,14 @@ Estevan 的个人网站源码。它以 Hugo 生成静态内容，用幕布式首
 - 博客：[blog.estevancyber.net](https://blog.estevancyber.net/)
 - 项目页：[blog.estevancyber.net/projects](https://blog.estevancyber.net/projects/)（GitHub 公开仓库卡片自动同步）
 - 工具站：[tools.estevancyber.net](https://tools.estevancyber.net/)
+- 情绪日记：[www.estevancyber.net/mood](https://www.estevancyber.net/mood/)（浏览器本地记录，支持备份）
 - VPS 面板：[vps.estevancyber.net](https://vps.estevancyber.net/)（Beszel，自用需登录）
 - 问答 API 文档：[api.estevancyber.net/docs](https://api.estevancyber.net/docs)
 - 本次首页改造教程：[从毛坯首页到幕布式个人网站](https://blog.estevancyber.net/posts/curtain-homepage-design-and-deployment/)
 
 ## 功能
+
+- [情绪日记与自我关怀](docs/mood-tool.md)：心情记录、7/30/90 天回顾、触发因素、呼吸与感官觉察、音乐；无需账户，不上传日记。
 
 - 全屏幕布式 Hero，每日稳定轮换本地精选图片。
 - 今天、本周、本月、今年四类本地时间进度。

@@ -132,7 +132,7 @@
                             {{- $icon := .Params.icon | default "tools" }}
                             {{- $isExternal := (findRE "://" .URL) }}
                             <li role="none">
-                                <a role="menuitem" class="menu-dropdown__item" href="{{ .URL | absLangURL }}" title="{{ .Title | default .Name }}"{{ if $isExternal }} target="_blank" rel="noopener"{{ end }}>
+                                <a role="menuitem" class="menu-dropdown__item" href="{{ if eq .Identifier "tools-mood" }}{{ .URL | relLangURL }}{{ else }}{{ .URL | absLangURL }}{{ end }}" title="{{ .Title | default .Name }}"{{ if $isExternal }} target="_blank" rel="noopener"{{ end }}>
                                     <span class="menu-dropdown__icon" aria-hidden="true">
                                         <svg class="menu-dropdown__glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#ec-icon-{{ $icon }}"></use></svg>
                                     </span>

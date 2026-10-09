@@ -54,6 +54,8 @@ jobs:
         run: |
           set -euo pipefail
           test -s public/index.html
+          test -s public/mood/index.html
+          grep -q 'id=mood-app' public/mood/index.html
           test -s public/posts/curtain-homepage-design-and-deployment/index.html
           test -s public/posts/curtain-homepage-design-and-deployment/homepage-architecture.svg
           test -s public/posts/curtain-homepage-design-and-deployment/deployment-pipeline.svg

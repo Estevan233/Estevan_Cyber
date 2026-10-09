@@ -22,6 +22,7 @@ fail() {
 
 required_files=(
   "index.html"
+  "mood/index.html"
   "posts/curtain-homepage-design-and-deployment/index.html"
   "posts/curtain-homepage-design-and-deployment/homepage-architecture.svg"
   "posts/curtain-homepage-design-and-deployment/deployment-pipeline.svg"
@@ -37,6 +38,7 @@ grep -q 'data-period=day' "$RELEASE_DIR/index.html" || fail "day progress marker
 grep -q 'data-period=week' "$RELEASE_DIR/index.html" || fail "week progress marker is missing"
 grep -q 'data-period=month' "$RELEASE_DIR/index.html" || fail "month progress marker is missing"
 grep -q 'data-period=year' "$RELEASE_DIR/index.html" || fail "year progress marker is missing"
+grep -q 'id=mood-app' "$RELEASE_DIR/mood/index.html" || fail "mood app marker is missing"
 
 timestamp="$(date -u +%Y%m%dT%H%M%SZ)"
 short_sha="${RELEASE_SHA:0:12}"
@@ -97,6 +99,14 @@ article="$(curl --insecure --fail --silent --show-error --max-time 15 \
   "https://${PROBE_HOST}${ARTICLE_PATH}?release=${short_sha}")"
 if [[ "$article" != *"从毛坯首页到幕布式个人网站"* ]]; then
   printf 'deploy error: tutorial probe returned unexpected content\n' >&2
+  rollback 1
+fi
+
+mood_page="$(curl --insecure --fail --silent --show-error --max-time 15 \
+  --resolve "${PROBE_HOST}:443:127.0.0.1" \
+  "https://${PROBE_HOST}/mood/?release=${short_sha}")"
+if [[ "$mood_page" != *"mood-app"* ]]; then
+  printf 'deploy error: mood tool probe returned unexpected content\n' >&2
   rollback 1
 fi
 

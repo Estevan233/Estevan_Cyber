@@ -85,6 +85,14 @@ menu:
       params:
         desc: 全文检索站内文章与笔记
         icon: search
+    - identifier: tools-mood
+      name: 情绪日记
+      url: /mood/
+      parent: tools
+      weight: 3
+      params:
+        desc: 记录情绪，回顾日常，照顾自己
+        icon: ask
     - identifier: tools-site
       name: 工具站
       url: https://tools.estevancyber.net/
