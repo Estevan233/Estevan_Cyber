@@ -44,7 +44,9 @@
   function resetForm() {
     form.reset(); editing = null;
     $("mood-at").value = C.localTime(); $("energy-value").textContent = "3 / 5";
-    $("mood-cancel").hidden = true; $("editor-title").textContent = "现在，感觉怎么样？"; $("mood-save").textContent = "保存这一刻";
+    $("mood-cancel").hidden = true; $("editor-title").textContent = "此刻，你的心情是？"; $("mood-save").textContent = "保存这一刻 →";
+    $("mood-selection").textContent = "还未选择"; $("mood-selection").removeAttribute("data-score");
+    form.querySelector(".mood-extra").open = false;
   }
   function showView(view) {
     for (const key of ["journal", "review", "care"]) $("view-" + key).hidden = key !== view;
@@ -57,11 +59,19 @@
   $("mood-open-care").addEventListener("click", () => showView("care"));
   $("mood-see-review").addEventListener("click", () => { showView("review"); $("view-review").scrollIntoView({ behavior: "auto", block: "start" }); });
   $("mood-cancel").addEventListener("click", resetForm);
+  $("mood-backup").addEventListener("click", () => {
+    $("mood-privacy").open = true;
+    $("mood-privacy").scrollIntoView({ block: "center", behavior: "auto" });
+    $("mood-privacy").querySelector("summary").focus({ preventScroll: true });
+  });
   $("mood-energy").addEventListener("input", () => { $("energy-value").textContent = $("mood-energy").value + " / 5"; });
   function updateSuggestion() {
     const current = selected("score")[0];
     const latest = entries[0];
     const text = C.recommendation(current ? Number(current) : latest?.score, current ? selected("emotions") : (latest?.emotions || []));
+    $("mood-selection").textContent = current ? names[Number(current)] : "还未选择";
+    if (current) $("mood-selection").dataset.score = current;
+    else $("mood-selection").removeAttribute("data-score");
     $("mood-suggestion").textContent = text;
     $("care-recommendation").textContent = (current ? "根据你当前的选择：" : latest ? "根据最近一次记录：" : "给此刻的你：") + text;
   }
@@ -81,6 +91,7 @@
     }
     $("mood-at").value = entry.at; $("mood-note").value = entry.note; $("mood-energy").value = entry.energy; $("energy-value").textContent = entry.energy + " / 5";
     $("mood-cancel").hidden = false; $("editor-title").textContent = "回到那一刻"; $("mood-save").textContent = "保存修改";
+    form.querySelector(".mood-extra").open = true;
     showView("journal"); form.scrollIntoView({ block: "start" }); $("mood-note").focus({ preventScroll: true }); updateSuggestion();
   }
   function render() {
@@ -89,6 +100,7 @@
     if (!sorted.length) list.append(node("p", "这里暂时空着。写下第一条记录，给今天留一点位置。", "mood-empty"));
     for (const entry of sorted.slice(0, limit)) {
       const article = node("article", undefined, "mood-entry");
+      article.dataset.score = String(entry.score);
       const header = node("header"); header.append(node("strong", names[entry.score]));
       const time = node("time", entry.at.replace("T", " · ")); time.dateTime = entry.at; header.append(time); article.append(header);
       article.append(node("p", entry.note || "这一刻，没有写下文字。"));
@@ -104,10 +116,29 @@
     }
     $("mood-load-more").hidden = sorted.length <= limit;
     $("today-count").textContent = sorted.filter((e) => e.at.slice(0, 10) === C.dateKey(new Date())).length;
+    $("mood-history-count").textContent = sorted.length;
+    renderWeek();
     $("latest-note").textContent = sorted.length ? `最近一次：${sorted[0].at.replace("T", " ")} · ${names[sorted[0].score]}` : "还没有记录。随时开始，也随时休息。";
     updateSuggestion(); renderReview();
   }
   $("mood-load-more").addEventListener("click", () => { limit += 6; render(); });
+  function renderWeek() {
+    const stats = C.summarize(entries, 7);
+    const week = $("mood-week"); week.replaceChildren();
+    for (const day of stats.timeline) {
+      const item = node("div", undefined, "mood-week-day");
+      const date = new Date(day.date + "T12:00");
+      item.dataset.score = day.average === null ? "empty" : String(Math.round(day.average));
+      item.dataset.today = String(day.date === C.dateKey(new Date()));
+      const label = `${day.date}：${day.average === null ? "无记录" : day.average.toFixed(1) + "/5，" + day.count + " 条"}`;
+      item.title = label; item.setAttribute("aria-label", label); item.setAttribute("role", "img"); item.tabIndex = 0;
+      item.append(node("span", ["日", "一", "二", "三", "四", "五", "六"][date.getDay()]), node("i"), node("small", date.getDate()));
+      week.append(item);
+    }
+    const today = new Date();
+    $("mood-date").textContent = new Intl.DateTimeFormat("zh-CN", { month: "long", day: "numeric", weekday: "long" }).format(today);
+    $("mood-date").dateTime = C.dateKey(today);
+  }
   function renderReview() {
     const stats = C.summarize(entries, Number($("mood-period").value));
     const summary = $("mood-stats"); summary.replaceChildren();
@@ -120,6 +151,7 @@
       const bars = node("div", undefined, "mood-chart-bars");
       for (const day of stats.timeline) {
         const row = node("div", undefined, "mood-chart-day"); row.dataset.empty = String(day.average === null);
+        row.dataset.score = day.average === null ? "empty" : String(Math.round(day.average));
         row.title = `${day.date}：${day.average === null ? "无记录" : day.average.toFixed(1) + "/5 · " + day.count + " 次"}`;
         row.setAttribute("role", "img"); row.setAttribute("aria-label", row.title); row.tabIndex = 0;
         const bar = node("i"); bar.style.height = (day.average === null ? 2 : day.average * 25) + "px";
