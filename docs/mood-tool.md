@@ -29,6 +29,16 @@
 
 ## 更新与验证
 
+### 2026-10-09 视觉迭代
+
+调研参考 [Daylio](https://daylio.net/) 的轻量记录与可视回顾、[How We Feel](https://howwefeel.org/) 的情绪识别与当下调节。借鉴产品结构，不复制素材或界面，也不声称进行过用户访谈。
+
+采用自然系编辑手账：桌面窄导航侧栏、白色记录面、关怀侧栏；手机收拢为横向导航。五档情绪有独立语义颜色；每周点阵来自最近七天真实记录，没有记录的日期留白。记录时间与精力按需展开。复用本站已有 AI 生成的窗边阅读图像，由 Hugo 转换为 640px WebP，避免额外第三方图片请求。
+
+沿用 `estevancyber.mood.v1` 键及原数据结构，旧记录和 JSON 备份继续兼容，不涉及数据迁移。现站 Cloudflare 性能统计仍保留，日记不参与统计。
+
+Cloudflare 橙云按 DNS 主机记录配置，非按页面路径配置。工具使用既有 `www.estevancyber.net/mood/` 路径，复用现有代理、HTTPS 和 Nginx，不需要添加 DNS 记录或端口。公网响应可检查 `server: cloudflare` 与 `cf-ray`；[官方代理说明](https://developers.cloudflare.com/dns/proxy-status/)。
+
 修改模板或资源后执行 `node --test tests/*.test.js`、Hugo 生产构建；独立构建目录避免与预览服务器相互覆盖。通过现有发布脚本备份后替换站点，无需新端口、DNS 或证书。
 
 浏览器验收覆盖：新增与刷新持久化、编辑/删除、导入导出、损坏备份不覆盖、空状态、呼吸暂停/重置、音乐加载、桌面/手机无溢出、公开链接无需登录。

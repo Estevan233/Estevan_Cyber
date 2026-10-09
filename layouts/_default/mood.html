@@ -3,44 +3,53 @@
 <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
 <div class="mood-app" id="mood-app">
   <header class="mood-heading">
-    <div><p class="mood-kicker">A LITTLE SPACE FOR YOURSELF</p><h1>给情绪，一个落脚点。</h1><p>不急着变好。先听听，此刻的自己。</p></div>
-    <span class="mood-private">仅保存在此浏览器</span>
+    <div class="mood-heading-title"><p class="mood-kicker">ESTEVAN / A MOMENT FOR YOU</p><h1>情绪日记<span>给自己一点空间。</span></h1></div>
+    <div class="mood-heading-meta"><time id="mood-date"></time><span class="mood-private">本机保存 · 不上传日记</span></div>
   </header>
   <noscript>请启用 JavaScript 使用日记功能。此工具不会将日记上传至服务器。</noscript>
-  <p id="mood-status" class="mood-status" role="status" aria-live="polite"></p>
+  <div class="mood-shell">
+  <aside class="mood-rail" aria-label="日记导航">
+  <div class="mood-wordmark">Dear, me<span>写给自己的片刻</span></div>
   <nav class="mood-tabs" aria-label="日记功能">
-    <button type="button" data-view="journal" aria-pressed="true">此刻 · 记录</button>
-    <button type="button" data-view="review" aria-pressed="false">回望 · 发现</button>
-    <button type="button" data-view="care" aria-pressed="false">照顾 · 自己</button>
+    <button type="button" data-view="journal" aria-pressed="true"><span aria-hidden="true">01</span> 记录此刻</button>
+    <button type="button" data-view="review" aria-pressed="false"><span aria-hidden="true">02</span> 情绪回顾</button>
+    <button type="button" data-view="care" aria-pressed="false"><span aria-hidden="true">03</span> 自我关怀</button>
   </nav>
+  <div class="mood-rail-bottom"><p>所有情绪，<br>都可以在这里停留。</p><button type="button" id="mood-backup" class="mood-text-button">隐私与备份 ↗</button></div>
+  </aside>
+  <div class="mood-content">
+  <p id="mood-status" class="mood-status" role="status" aria-live="polite"></p>
   <section id="view-journal" class="mood-view" aria-label="记录情绪">
     <div class="mood-workspace">
       <form id="mood-form" class="mood-editor">
-        <div class="mood-section-title"><h2 id="editor-title">现在，感觉怎么样？</h2><span>一两句话也很好</span></div>
-        <fieldset><legend>此刻的心情 <span class="mood-required">必选</span></legend>
+        <div class="mood-section-title"><div><p class="mood-kicker">TODAY'S CHECK-IN</p><h2 id="editor-title">此刻，你的心情是？</h2></div><span class="mood-selection" id="mood-selection">还未选择</span></div>
+        <fieldset class="mood-score-field"><legend class="mood-sr-only">此刻的心情（必选）</legend>
           <div class="mood-scale">
             {{ range slice (dict "value" "1" "name" "很低落" "mouth" "M8 16 Q12 10 16 16") (dict "value" "2" "name" "有点难受" "mouth" "M8 15 Q12 12 16 15") (dict "value" "3" "name" "还好" "mouth" "M8 14 H16") (dict "value" "4" "name" "挺不错" "mouth" "M8 13 Q12 17 16 13") (dict "value" "5" "name" "很愉快" "mouth" "M7 12 Q12 21 17 12 Z") }}
             <label class="mood-choice mood-choice--{{ .value }}"><input type="radio" name="score" value="{{ .value }}" required><span><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 8h.01M16 8h.01" stroke-width="3" stroke-linecap="round"/><path d="{{ .mouth }}"/></svg><strong>{{ .name }}</strong></span></label>
             {{ end }}
           </div>
         </fieldset>
-        <fieldset><legend>更具体一点 <span>可多选</span></legend><div class="mood-chips">
+        <fieldset><legend>如果愿意，描述得再具体一点 <span>多选</span></legend><div class="mood-chips mood-emotions">
           {{ range slice "平静" "开心" "感激" "期待" "焦虑" "疲惫" "难过" "生气" "孤独" "迷茫" }}<label><input type="checkbox" name="emotions" value="{{ . }}"><span>{{ . }}</span></label>{{ end }}
         </div></fieldset>
-        <fieldset><legend>什么影响了你？ <span>可多选，也可以暂时不知道</span></legend><div class="mood-chips">
+        <fieldset><legend>什么影响了今天的你？ <span>多选</span></legend><div class="mood-chips mood-factors">
           {{ range slice "学业" "工作" "人际关系" "家庭" "睡眠" "身体状态" "独处" "运动" "日常小事" "暂不清楚" }}<label><input type="checkbox" name="triggers" value="{{ . }}"><span>{{ . }}</span></label>{{ end }}
         </div></fieldset>
-        <label class="mood-field" for="mood-note">发生了什么？<textarea id="mood-note" name="note" rows="4" maxlength="2000" placeholder="当时发生了什么？身体有什么感觉？也可以留白。"></textarea></label>
-        <div class="mood-form-bottom"><label class="mood-field" for="mood-at">记录时间<input type="datetime-local" id="mood-at" name="at" required></label><label class="mood-field" for="mood-energy">精力 <output id="energy-value">3 / 5</output><input type="range" id="mood-energy" name="energy" min="1" max="5" value="3"><span class="mood-range-labels"><span>需要休息</span><span>充满能量</span></span></label></div>
-        <div class="mood-actions"><button class="mood-primary" type="submit" id="mood-save">保存这一刻</button><button type="button" id="mood-cancel" hidden>取消编辑</button><span>无需打卡，不必每天都写。</span></div>
+        <label class="mood-field mood-writing" for="mood-note">写一点，或者留白。<textarea id="mood-note" name="note" rows="3" maxlength="2000" placeholder="发生了什么？有什么想对自己说的？"></textarea></label>
+        <details class="mood-extra"><summary>记录时间与精力</summary><div class="mood-form-bottom"><label class="mood-field" for="mood-at">记录时间<input type="datetime-local" id="mood-at" name="at" required></label><label class="mood-field" for="mood-energy">精力 <output id="energy-value">3 / 5</output><input type="range" id="mood-energy" name="energy" min="1" max="5" value="3"><span class="mood-range-labels"><span>需要休息</span><span>充满能量</span></span></label></div></details>
+        <div class="mood-actions mood-save-row"><span>不必写得完整，真实就好。</span><button type="button" id="mood-cancel" hidden>取消编辑</button><button class="mood-primary" type="submit" id="mood-save">保存这一刻 →</button></div>
       </form>
       <aside class="mood-side">
-        <div class="mood-note-block"><span class="mood-kicker">ONE SMALL STEP</span><h2>先对自己温柔一点</h2><p id="mood-suggestion">把脚放稳，松一松肩膀。你不需要现在就解决所有问题。</p><button type="button" class="mood-text-button" id="mood-open-care">给自己几分钟 <span aria-hidden="true">→</span></button></div>
-        <div class="mood-today"><h3>今天的足迹</h3><strong id="today-count">0</strong><span>次认真听见自己</span><p id="latest-note">还没有记录。随时开始，也随时休息。</p></div>
-        <p class="mood-local-note">日记不会上传，也不接入 AI。清理浏览器数据会删除记录；不同设备或域名之间不会自动同步。</p>
+        {{ $scene := resources.Get "images/home/curtain/quiet-portrait.png" }}
+        {{ $scene = $scene.Resize "640x webp q82" }}
+        <figure class="mood-scene"><img src="{{ $scene.RelPermalink }}" width="{{ $scene.Width }}" height="{{ $scene.Height }}" alt="阳光下，一位读者坐在窗边安静地翻阅书本" decoding="async"><figcaption>慢一点，也没关系。</figcaption></figure>
+        <div class="mood-note-block"><span class="mood-kicker">A SMALL KINDNESS</span><h2>先照顾好此刻的自己</h2><p id="mood-suggestion">把脚放稳，松一松肩膀。你不需要现在就解决所有问题。</p><button type="button" class="mood-text-button" id="mood-open-care">给自己几分钟 <span aria-hidden="true">→</span></button></div>
+        <div class="mood-today"><div class="mood-section-title"><h3>最近七天</h3><span>今天 <strong id="today-count">0</strong> 条</span></div><div id="mood-week" class="mood-week" aria-label="最近七天的心情记录"></div><p id="latest-note">还没有记录。随时开始，也随时休息。</p></div>
+        <p class="mood-local-note">这是你的私人空间。不用打卡，也不用向任何人证明你正在变好。</p>
       </aside>
     </div>
-    <div class="mood-section-title mood-history-heading"><h2>留给自己的片刻</h2><button type="button" id="mood-see-review" class="mood-text-button">查看回顾 →</button></div>
+    <div class="mood-section-title mood-history-heading"><h2>留给自己的片刻 <span id="mood-history-count">0</span></h2><button type="button" id="mood-see-review" class="mood-text-button">全部回顾 →</button></div>
     <div id="mood-history" class="mood-history"></div>
     <button type="button" id="mood-load-more" hidden>再看一些</button>
   </section>
@@ -62,9 +71,11 @@
     <details class="mood-sources"><summary>这些练习从哪里来？</summary><p>内容参考 <a href="https://www.who.int/europe/publications/i/item/9789240003910" target="_blank" rel="noopener noreferrer">WHO 压力管理自助指南</a>与 <a href="https://www.nhs.uk/mental-health/self-help/guides-tools-and-activities/breathing-exercises-for-stress/" target="_blank" rel="noopener noreferrer">NHS 呼吸练习</a>，为一般性自助建议。感官觉察采用常见的 5-4-3-2-1 引导方式；页面内容并非医疗方案或疗效保证。</p></details>
   </section>
   <footer class="mood-bottom">
-    <details><summary>隐私与备份</summary><p>数据以未加密的形式保存在此浏览器的本地存储中。共用设备上请谨慎记录敏感信息。网站不提供账户或云端备份，也不会上传、分析你的日记。</p><p>建议定期导出。备份文件同样未经加密，请妥善保存。导入会合并记录，同 ID 的记录会被导入版本替换。</p><div class="mood-actions"><button type="button" id="mood-export">导出备份</button><label class="mood-file-button">导入备份<input type="file" id="mood-import" accept="application/json,.json"></label><button type="button" id="mood-clear" class="mood-danger">清空本机记录</button></div></details>
+    <details id="mood-privacy"><summary>隐私与备份</summary><p>数据以未加密的形式保存在此浏览器的本地存储中。共用设备上请谨慎记录敏感信息。网站不提供账户或云端备份，也不会上传、分析你的日记。清理浏览器数据会删除记录；不同设备或域名之间不会自动同步。</p><p>页面沿用现站的 Cloudflare 性能统计，日记内容不参与统计。建议定期导出。备份文件同样未经加密，请妥善保存。导入会合并记录，同 ID 的记录会被导入版本替换。</p><div class="mood-actions"><button type="button" id="mood-export">导出备份</button><label class="mood-file-button">导入备份<input type="file" id="mood-import" accept="application/json,.json"></label><button type="button" id="mood-clear" class="mood-danger">清空本机记录</button></div></details>
     <details><summary>当自助还不够时</summary><p>本工具不是心理咨询或诊断。如果情绪困扰持续、加重或影响生活，可以联系当地正规心理健康服务。如果你有伤害自己的想法或处于即时危险，请立即联系当地急救服务或身边可信任的人，不要独自承担。中国大陆紧急医疗救助可拨打 <a href="tel:120">120</a>；其他地区请使用当地急救号码。</p></details>
   </footer>
+  </div>
+  </div>
 </div>
 {{ $core := resources.Get "js/mood-core.js" | minify | fingerprint }}
 {{ $app := resources.Get "js/mood-app.js" | minify | fingerprint }}
